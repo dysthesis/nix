@@ -1,5 +1,4 @@
-# sddm-theme.nix
-
+# A modified sugar-dark theme
 { pkgs }:
 
 let

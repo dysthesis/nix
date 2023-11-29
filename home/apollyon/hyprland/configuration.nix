@@ -9,6 +9,8 @@ in {
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         "polkit-kde-agent"
+        "eww open bar"
+        "eww open osd"
         "udiskie"
 	      "swww init"
 	      "swww img ${wallpaper}"
