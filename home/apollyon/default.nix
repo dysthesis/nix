@@ -9,6 +9,7 @@
     ./ags
     ./packages.nix
   ] ++ [
+    inputs.ags.homeManagerModules.default
     inputs.nix-colors.homeManagerModules.default
   ];
   dconf.settings = {

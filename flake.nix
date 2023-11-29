@@ -10,6 +10,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ags.url = "github:Aylur/ags";
+
     # easy color integration
     nix-colors = {
       url = "github:misterio77/nix-colors";
