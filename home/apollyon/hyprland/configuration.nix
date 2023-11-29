@@ -10,8 +10,7 @@ in {
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         "polkit-kde-agent"
-        "eww open bar"
-        "eww open osd"
+        "ags"
         "udiskie"
 	      "swww init"
 	      "swww img ${wallpaper}"
@@ -38,7 +37,7 @@ in {
       };
       decoration = {
         # fancy corners
-        rounding = 12;
+        rounding = 8;
 
         # blur
         blur = {
@@ -162,11 +161,7 @@ in {
         # volume controls
         ",XF86AudioRaiseVolume, exec, ags run-js \"audio.speaker.volume += 0.05; indicator.speaker()\""
         ",XF86AudioLowerVolume, exec, ags run-js \"audio.speaker.volume -= 0.05; indicator.speaker()\""
-          ",XF86AudioMute, exec, ${volumectl} -m"
-
-          # brightness controls
-          ",XF86MonBrightnessUp,exec,brightness set +5%"
-          ",XF86MonBrightnessDown,exec,brightness set 5%-"
+        ",XF86AudioMute, exec, ${volumectl} -m"
       ];
 
       # binds that are locked, a.k.a will activate even while an input inhibitor is active

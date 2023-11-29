@@ -1,4 +1,13 @@
 {pkgs, ...}: {
+  home.packages = with pkgs; [
+    font-awesome
+    papirus-icon-theme
+    qogir-icon-theme
+    whitesur-icon-theme
+    colloid-icon-theme
+    adw-gtk3
+    nerdfonts
+  ];
   imports = [
     ./colours.nix
   ];
