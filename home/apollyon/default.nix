@@ -2,13 +2,14 @@
   imports = [
     ./hyprland
     ./kitty
-    ./rofi
+    ./anyrun
     ./theme
     ./emacs
     ./git
     ./ags
     ./packages.nix
   ] ++ [
+    inputs.anyrun.homeManagerModules.default
     inputs.ags.homeManagerModules.default
     inputs.nix-colors.homeManagerModules.default
   ];

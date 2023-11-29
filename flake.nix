@@ -11,7 +11,10 @@
     };
 
     ags.url = "github:Aylur/ags";
-
+    anyrun.url = "github:Kirottu/anyrun";
+    anyrun-nixos-options = {
+      url = "github:n3oney/anyrun-nixos-options";
+    };
     # easy color integration
     nix-colors = {
       url = "github:misterio77/nix-colors";
