@@ -15,6 +15,7 @@ in {
         stdin
         translate
         shell
+        # inputs.anyrun-nixos-options.packages.${pkgs.system}.default
       ];
 
       width.fraction = 0.3;

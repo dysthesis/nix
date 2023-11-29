@@ -12,6 +12,7 @@ in {
         "polkit-kde-agent"
         "ags"
         "udiskie"
+        "dictionary"
 	      "swww init"
 	      "swww img ${wallpaper}"
       ];
