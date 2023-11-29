@@ -1,16 +1,19 @@
+import App from 'resource:///com/github/Aylur/ags/app.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
 import options from '../options.js';
 import icons from '../icons.js';
 import { reloadScss, scssWatcher } from './scss.js';
-import { wallpaper } from './wallpaper.js';
-import { hyprlandInit, setupHyprland } from './hyprland.js';
+import { initWallpaper, wallpaper } from './wallpaper.js';
+import { hyprlandInit } from './hyprland.js';
 import { globals } from './globals.js';
-import { showAbout } from '../about/about.js';
 import Gtk from 'gi://Gtk';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+
 
 export function init() {
+    initWallpaper();
     notificationBlacklist();
     warnOnLowBattery();
     globals();
@@ -18,21 +21,18 @@ export function init() {
     gsettigsColorScheme();
     gtkFontSettings();
     scssWatcher();
-    dependandOptions();
 
-    reloadScss();
-    hyprlandInit();
-    setupHyprland();
-    wallpaper();
-    showAbout();
-}
-
-function dependandOptions() {
-    options.bar.style.connect('changed', ({ value }) => {
-        if (value !== 'normal')
-            options.desktop.screen_corners.setValue(false, true);
+    App.connect('config-parsed', () => {
+        reloadScss();
+        hyprlandInit();
+        wallpaper();
+        pywal();
+        gtkTheme();
+        gtkIcons();
     });
 }
+
+
 
 function tmux() {
     if (!Utils.exec('which tmux'))
@@ -106,4 +106,32 @@ function warnOnLowBattery() {
             '-u', 'critical',
         ]);
     });
+}
+
+export function pywal() {
+    if (!exec('which wal'))
+        return print('missing dependancy: pywal');
+
+    execAsync([
+        'wal', '--theme', options.misc.pywal.theme.value,
+    ]).catch(err => console.error(err));
+}
+
+export function gtkTheme() {
+    if (!exec('which gsettings'))
+        return print('missing dependancy: Gnome-Settings');
+
+    execAsync([
+        'gsettings', 'set', 'org.gnome.desktop.interface', 'gtk-theme', options.misc.gtk.theme.value,
+    ]).catch(err => console.error(err));
+}
+
+
+export function gtkIcons() {
+    if (!exec('which gsettings'))
+        return print('missing dependancy: Gnome-Settings');
+
+    execAsync([
+        'gsettings', 'set', 'org.gnome.desktop.interface', 'icon-theme', options.misc.gtkIcons.theme.value,
+    ]).catch(err => console.error(err));
 }

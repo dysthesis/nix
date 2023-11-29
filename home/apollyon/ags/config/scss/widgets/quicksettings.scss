@@ -14,7 +14,7 @@ window#quicksettings .window-content {
         @include widget;
         @include spacing($rec: true);
 
-        padding: $padding;
+        padding: 10px;
 
 
         button, .uptime {

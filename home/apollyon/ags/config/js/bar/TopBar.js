@@ -1,15 +1,10 @@
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
-import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
-import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
 import OverviewButton from './buttons/OverviewButton.js';
 import Workspaces from './buttons/Workspaces.js';
-import FocusedClient from './buttons/FocusedClient.js';
-import MediaIndicator from './buttons/MediaIndicator.js';
 import DateButton from './buttons/DateButton.js';
-import NotificationIndicator from './buttons/NotificationIndicator.js';
 import SysTray from './buttons/SysTray.js';
 import ColorPicker from './buttons/ColorPicker.js';
 import SystemIndicators from './buttons/SystemIndicators.js';
@@ -18,8 +13,9 @@ import ScreenRecord from './buttons/ScreenRecord.js';
 import BatteryBar from './buttons/BatteryBar.js';
 import SubMenu from './buttons/SubMenu.js';
 import Recorder from '../services/screenrecord.js';
-// import Taskbar from './buttons/Taskbar.js';
 import options from '../options.js';
+import * as vars from '../variables.js';
+import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 const submenuItems = Variable(1);
 SystemTray.connect('changed', () => {
@@ -55,11 +51,7 @@ const Start = () => Widget.Box({
         OverviewButton(),
         SeparatorDot(),
         Workspaces(),
-        SeparatorDot(),
-        FocusedClient(),
         Widget.Box({ hexpand: true }),
-        NotificationIndicator(),
-        SeparatorDot(Notifications, n => n.notifications.length > 0 || n.dnd),
     ],
 });
 
@@ -70,11 +62,23 @@ const Center = () => Widget.Box({
     ],
 });
 
+const SysProgress = (type, title, unit) => Widget.Box({
+    class_name: `circular-progress-box ${type}`,
+    hexpand: false,
+    binds: [['tooltipText', vars[type], 'value', v =>
+        `${title}: ${Math.floor(v * 100)}${unit}`]],
+    child: Widget.CircularProgress({
+        hexpand: true,
+        inverted: false,
+        class_name: `circular-progress ${type}`,
+        binds: [['value', vars[type]]],
+        start_at: 0.75,
+    }),
+});
+
 const End = () => Widget.Box({
     class_name: 'end',
     children: [
-        SeparatorDot(Mpris, m => m.players.length > 0),
-        MediaIndicator(),
         Widget.Box({ hexpand: true }),
 
         SubMenu({
@@ -85,12 +89,21 @@ const End = () => Widget.Box({
             ],
         }),
 
+        Widget.Box({
+            class_name: 'system-info horizontal',
+            children: [
+                SysProgress('cpu', 'Cpu', '%'),
+                SysProgress('ram', 'Ram', '%'),
+                SysProgress('temp', 'Temperature', '°'),
+            ],
+        }),
+
         SeparatorDot(),
         ScreenRecord(),
         SeparatorDot(Recorder, r => r.recording),
-        SystemIndicators(),
+        BatteryBar(Battery, b => b.available),
         SeparatorDot(Battery, b => b.available),
-        BatteryBar(),
+        SystemIndicators(),
         SeparatorDot(),
         PowerMenu(),
     ],

@@ -18,9 +18,9 @@ export default {
     apply: apply,
     list: getOptions,
 
-    spacing: Option(9),
+    spacing: Option(2),
     padding: Option(8),
-    radii: Option(9),
+    radii: Option(5),
 
     popover_padding_multiplier: Option(1.4, {
         'category': 'General',
@@ -29,14 +29,35 @@ export default {
         'unit': '',
     }),
 
+    misc: {
+        pywal: {
+            theme: Option('', {
+                'scss': 'exclude',
+
+            })
+        },
+        gtk: {
+            theme: Option('', {
+                'scss': 'exclude',
+
+            })
+        },
+        gtkIcons: {
+            theme: Option('', {
+                'scss': 'exclude',
+
+            })
+        },
+    },
+
     color: {
-        red: Option('#e55f86', { 'scss': 'red' }),
-        green: Option('#00D787', { 'scss': 'green' }),
-        yellow: Option('#EBFF71', { 'scss': 'yellow' }),
-        blue: Option('#51a4e7', { 'scss': 'blue' }),
-        magenta: Option('#9077e7', { 'scss': 'magenta' }),
-        teal: Option('#51e6e6', { 'scss': 'teal' }),
-        orange: Option('#E79E64', { 'scss': 'orange' }),
+        red: Option('#c01c28', { 'scss': 'red' }),
+        green: Option('#2ec27e', { 'scss': 'green' }),
+        yellow: Option('#f5c211', { 'scss': 'yellow' }),
+        blue: Option('#3584e4', { 'scss': 'blue' }),
+        magenta: Option('#813d9c', { 'scss': 'magenta' }),
+        teal: Option('#99c1f1', { 'scss': 'teal' }),
+        orange: Option('#e66100', { 'scss': 'orange' }),
     },
 
     theme: {
@@ -57,11 +78,11 @@ export default {
             'title': 'Color Scheme',
             'scss': 'color-scheme',
         }),
-        bg: Option('#171717', {
+        bg: Option('#1E1E1E', {
             'title': 'Background Color',
             'scss': 'bg-color',
         }),
-        fg: Option('#eeeeee', {
+        fg: Option('#deddda', {
             'title': 'Foreground Color',
             'scss': 'fg-color',
         }),
@@ -110,9 +131,14 @@ export default {
             'title': 'Border Opacity',
             'unit': '',
         }),
-        width: Option(1, {
+        width: Option(0, {
             'category': 'Border',
             'title': 'Border Width',
+        }),
+        barcolor: Option('#ffffff', {
+            'category': 'Border',
+            'title': 'Bar Border color',
+            'scss': 'bar-border-color',
         }),
     },
 
@@ -122,10 +148,10 @@ export default {
             'title': 'Border on Inactive Windows',
             'scss': 'exclude',
         }),
-        wm_gaps_multiplier: Option(2.4, {
+        wm_gaps: Option(3, {
             'category': 'General',
-            'scss': 'wm-gaps-multiplier',
-            'note': 'wm-gaps: padding × this',
+            'scss': 'wm-gaps',
+            'note': 'wm-gaps',
             'type': 'float',
             'unit': '',
         }),
@@ -165,7 +191,7 @@ export default {
             'enums': ['top', 'bottom'],
             'type': 'enum',
         }),
-        style: Option('normal', {
+        style: Option('floating', {
             'enums': ['floating', 'normal', 'separated'],
             'type': 'enum',
         }),
@@ -203,32 +229,8 @@ export default {
             'type': 'img',
             'note': 'displayed in quicksettings and locksreen',
         }),
-        screen_corners: Option(true, { 'scss': 'screen-corners' }),
-        clock: {
-            enable: Option(true),
-            position: Option('center center', {
-                'note': 'halign valign',
-            }),
-        },
-        drop_shadow: Option(true, { 'scss': 'drop-shadow' }),
+        drop_shadow: Option(false, { 'scss': 'drop-shadow' }),
         shadow: Option('rgba(0, 0, 0, .6)', { 'scss': 'shadow' }),
-        dock: {
-            icon_size: Option(56),
-            pinned_apps: Option([
-                'firefox',
-                'org.wezfurlong.wezterm',
-                'org.gnome.Nautilus',
-                'org.gnome.Calendar',
-                'obsidian',
-                'transmission-gtk',
-                'caprine',
-                'teams-for-linux',
-                'discord',
-                'spotify',
-                'com.usebottles.bottles',
-                'org.gnome.Software',
-            ], { 'scss': 'exclude' }),
-        },
     },
 
     notifications: {
@@ -256,14 +258,14 @@ export default {
         }),
     },
 
-    workspaces: Option(7, {
+    workspaces: Option(10, {
         'category': 'Bar',
         'title': 'No. workspaces on bar and overview',
         'note': 'Set it to 0 to make it dynamic',
     }),
 
     temperature: '/sys/class/thermal/thermal_zone0/temp',
-    systemFetchInterval: 5000,
+    systemFetchInterval: 1000,
     brightnessctlKBD: 'asus::kbd_backlight',
     substitutions: {
         icons: [

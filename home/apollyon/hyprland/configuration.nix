@@ -160,13 +160,13 @@ in {
       # binds that will be repeated, a.k.a can be held to toggle multiple times
       binde = [
         # volume controls
-        ",XF86AudioRaiseVolume, exec, ${volumectl} -i 5"
-        ",XF86AudioLowerVolume, exec, ${volumectl} -d 5"
-        ",XF86AudioMute, exec, ${volumectl} -m"
+        ",XF86AudioRaiseVolume, exec, ags run-js \"audio.speaker.volume += 0.05; indicator.speaker()\""
+        ",XF86AudioLowerVolume, exec, ags run-js \"audio.speaker.volume -= 0.05; indicator.speaker()\""
+          ",XF86AudioMute, exec, ${volumectl} -m"
 
-        # brightness controls
-        ",XF86MonBrightnessUp,exec,brightness set +5%"
-        ",XF86MonBrightnessDown,exec,brightness set 5%-"
+          # brightness controls
+          ",XF86MonBrightnessUp,exec,brightness set +5%"
+          ",XF86MonBrightnessDown,exec,brightness set 5%-"
       ];
 
       # binds that are locked, a.k.a will activate even while an input inhibitor is active
