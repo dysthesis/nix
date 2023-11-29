@@ -11,6 +11,7 @@
   };
 
   imports = [
+    ./wlsunset.nix
     ./configuration.nix
   ];
 
