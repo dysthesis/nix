@@ -23,6 +23,11 @@
     wl-clip-persist
     wl-clipboard
     playerctl
+    grim
+    slurp
+    swappy
+    pavucontrol
+    imagemagick
     libsForQt5.polkit-kde-agent
   ];
 }

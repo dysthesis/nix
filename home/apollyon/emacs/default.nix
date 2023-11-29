@@ -27,7 +27,7 @@
     # 28.2 + native-comp
     dash
     cmake
-    graphviz
+    #graphviz
     nixfmt
     libclang
     glslang
