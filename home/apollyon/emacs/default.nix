@@ -27,6 +27,9 @@
     # 28.2 + native-comp
     dash
     cmake
+
+    shellcheck
+    shfmt
     #graphviz
     nixfmt
     libclang

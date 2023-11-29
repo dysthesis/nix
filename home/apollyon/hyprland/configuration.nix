@@ -21,8 +21,8 @@ in {
       };
       general = {
         # gaps
-        gaps_in = 8;
-        gaps_out = 12;
+        gaps_in = 6;
+        gaps_out = 10;
 
         # border thiccness
         border_size = 3;
