@@ -1,5 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    gnome.nautilus
+    gnome.sushi
     noto-fonts
     roboto
     lato
