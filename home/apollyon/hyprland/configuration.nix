@@ -1,5 +1,6 @@
 _: let
   wallpaper = ./wallpaper.png;
+  volumectl = ./volumectl.sh;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -159,9 +160,9 @@ in {
       # binds that will be repeated, a.k.a can be held to toggle multiple times
       binde = [
         # volume controls
-        ",XF86AudioRaiseVolume, exec, volume -i 5"
-        ",XF86AudioLowerVolume, exec, volume -d 5"
-        ",XF86AudioMute, exec, volume -t"
+        ",XF86AudioRaiseVolume, exec, ${volumectl} -i 5"
+        ",XF86AudioLowerVolume, exec, ${volumectl} -d 5"
+        ",XF86AudioMute, exec, ${volumectl} -m"
 
         # brightness controls
         ",XF86MonBrightnessUp,exec,brightness set +5%"

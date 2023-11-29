@@ -6,7 +6,7 @@
     ./theme
     ./emacs
     ./git
-    ./eww
+    ./ags
     ./packages.nix
   ] ++ [
     inputs.nix-colors.homeManagerModules.default
