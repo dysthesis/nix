@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    gnome.nautilus
-    gnome.sushi
     xfce.thunar
+    xfce.thunar-volman
+    xfce.thunar-archive-plugin
+    xfce.thunar-media-tags-plugin
     noto-fonts
     roboto
     lato
