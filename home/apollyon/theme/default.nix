@@ -1,38 +1,27 @@
-{pkgs, ...}: {
+{ pkgs, ... }: let
+  phocus-oxocarbon = pkgs.callPackage ../../../packages/oxocarbon-gtk {  };
+in {
   home.packages = with pkgs; [
     font-awesome
-    papirus-icon-theme
-    qogir-icon-theme
-    whitesur-icon-theme
-    colloid-icon-theme
     adw-gtk3
     nerdfonts
   ];
+
   imports = [
     ./colours.nix
   ];
+
   gtk = {
+    enable = true;
+
     theme = {
-      name = "Materia-dark-compact";
-      package = pkgs.materia-theme;
+      name = "phocus";
+      package = phocus-oxocarbon;
     };
 
     iconTheme = {
-      package = pkgs.tela-circle-icon-theme.override {
-        colorVariants = ["dracula"];
-      };
-      name = "Tela-circle-dracula-dark";
-    };
-
-    font = {
-      name = "Lato";
-      size = 12;
-    };
-
-    cursorTheme = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Classic";
-      size = 24;
+      name = "Tela-black-dark";
+      package = pkgs.tela-icon-theme;
     };
   };
 
