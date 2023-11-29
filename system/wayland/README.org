@@ -1,0 +1,4 @@
+#+title: Wayland
+
+* Enabled displays
+- Hyprland

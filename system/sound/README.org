@@ -1,0 +1,3 @@
+#+title: Sound
+
+Currently, Pipewire is used as a sound server.

@@ -1,0 +1,26 @@
+#+title: NixOS configurations
+
+* Structure
+[[file:flake.nix][The flake]] manages the inputs for the configurations, the repositories where the packages necessary would come from.
+
+From that, the hosts are the first gateways to the actual configurations themselves, used to define per-device configurations.
+
+** Hosts
+This is where per-device configurations are defined, including hardware-specific configurations, such as filesystems and drivers. This is where the system and home configurations are imported too.
+
+| Hostname | Display  | Filesystem | Additional notes |
+|----------+----------+------------+------------------|
+| phobos   | Hyprland | ZFS        | Impermanence, Lanzaboote |
+
+** System
+Self-explanatory, defines system-wide configuration.
+
+- [[file:system/general][General configurations]]
+- [[file:system/network][Network:]] For all network-related configurations, including Wi-Fi and Bluetooth.
+- [[file:system/wayland/][Wayland:]] Defines configurations for a Wayland display.
+- [[file:system/sound][Sound:]] Sound-specific configurations, including Pipewire.
+- [[file:system/security][Security:]] Security-related configurations such as AppArmor, Sudo, PAM, kernel hardening, etc.
+- [[file:system/services][Services:]] For all the services that makes life easier.
+
+** Home
+** TODO Modules
