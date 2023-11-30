@@ -1,5 +1,5 @@
 _: let
-  wallpaper = ./wallpaper.png;
+  wallpaper = ./wallpaper.jpg;
 in {
   wayland.windowManager.hyprland = {
     settings = {
