@@ -1,10 +1,14 @@
 { pkgs, ... }: {
   nixpkgs.overlays = [
     (self: super: { georgia-pro = super.callPackage ../../packages/georgia-fonts { }; })
+    (self: super: { cartograph = super.callPackage ../../packages/cartograph { }; })
+    (self: super: { cartograph-nf = super.callPackage ../../packages/cartograph-nf { }; })
   ];
   fonts = {
     packages = with pkgs; [
+      cartograph-nf
       georgia-pro
+      cartograph
       noto-fonts
       cantarell-fonts
       roboto
