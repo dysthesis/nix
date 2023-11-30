@@ -1,6 +1,7 @@
 {inputs, ...}: {
   imports = [
     ./hyprland
+    ./zathura
     # ./firefox
     ./kitty
     ./anyrun
