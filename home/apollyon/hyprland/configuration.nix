@@ -15,6 +15,7 @@ in {
         "foot -s"
 	      "swww init"
 	      "swww img ${wallpaper}"
+        "hyprctl reload"
       ];
       input = {
         kb_layout = "us";
