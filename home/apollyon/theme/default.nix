@@ -50,4 +50,12 @@ in {
       x11.enable = true;
     };
   };
+  qt = {
+    enable = true;
+    platformTheme = "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
+    style = {
+      package = pkgs.lightly-qt;
+      name = "Lightly";
+    };
+  };
 }
