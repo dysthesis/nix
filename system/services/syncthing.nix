@@ -43,6 +43,21 @@ _: {
           label = "Music";
           devices = ["Laptop" "Phone"];
         };
+        "/home/apollyon/Pictures/Camera" = {
+          id = "pixel_6a_zssj-photos";
+          label = "Camera";
+          devices = ["Phone"];
+        };
+        "/home/apollyon/Pictures/Images" = {
+          id = "yfg4a-jvzny";
+          label = "Pictures";
+          devices = ["Phone"];
+        };
+        "/home/apollyon/Documents/Audiobooks" = {
+          id = "mg921-1w6bm";
+          label = "Audiobooks";
+          devices = ["Phone"];
+        };
       };
     };
   };

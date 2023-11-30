@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./zfs.nix
     ./tor.nix
     ./dbus.nix
     ./udev.nix
