@@ -10,6 +10,11 @@
     procps
     ripgrep
     inotify-tools
+    libdbusmenu-gtk3
+    gtk-layer-shell
+    upower
+    gradience
+    gobject-introspection
   ];
 
   programs.ags = {

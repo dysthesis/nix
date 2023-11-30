@@ -1,6 +1,5 @@
 _: let
   wallpaper = ./wallpaper.png;
-  volumectl = ./volumectl.sh;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -23,7 +22,7 @@ in {
       general = {
         # gaps
         gaps_in = 6;
-        gaps_out = 10;
+        gaps_out = 12;
 
         # border thiccness
         border_size = 3;
@@ -38,7 +37,7 @@ in {
       };
       decoration = {
         # fancy corners
-        rounding = 8;
+        rounding = 12;
 
         # blur
         blur = {
@@ -159,7 +158,7 @@ in {
         # volume controls
         ",XF86AudioRaiseVolume, exec, ags run-js \"audio.speaker.volume += 0.05; indicator.speaker()\""
         ",XF86AudioLowerVolume, exec, ags run-js \"audio.speaker.volume -= 0.05; indicator.speaker()\""
-        ",XF86AudioMute, exec, ${volumectl} -m"
+        # ",XF86AudioMute, exec, ${volumectl} -m"
       ];
 
       # binds that are locked, a.k.a will activate even while an input inhibitor is active

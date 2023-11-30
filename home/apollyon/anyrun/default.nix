@@ -29,7 +29,7 @@ in {
       * {
         transition: 200ms ease-out;
         color: #ffffff;
-        font-family: Lato Regular;
+        font-family: JetBrainsMono Nerd Font;
         font-size: 1.1rem;
       }
 

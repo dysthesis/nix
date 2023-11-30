@@ -92,8 +92,8 @@ const End = () => Widget.Box({
         Widget.Box({
             class_name: 'system-info horizontal',
             children: [
-                SysProgress('cpu', 'Cpu', '%'),
-                SysProgress('ram', 'Ram', '%'),
+                SysProgress('cpu', 'CPU', '%'),
+                SysProgress('ram', 'RAM', '%'),
                 SysProgress('temp', 'Temperature', '°'),
             ],
         }),
