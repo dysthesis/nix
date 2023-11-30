@@ -33,7 +33,7 @@ Theme({
   "theme.fg": "#ffffff",
   "theme.accent.accent": "#ed5d53",
   "theme.accent.fg": "$bg-color",
-  // "theme.accent.gradient": "to right, $accent, lighten($accent, 14%)",
+  "theme.accent.gradient": "$accent",
   "theme.widget.bg": "$fg-color",
   "theme.widget.opacity": 94,
 
