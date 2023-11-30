@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    thunderbird
     xfce.thunar
     xfce.thunar-volman
     xfce.thunar-archive-plugin
