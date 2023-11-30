@@ -12,6 +12,7 @@ in {
         "ags"
         "udiskie"
         "dictionary"
+        "foot -s"
 	      "swww init"
 	      "swww img ${wallpaper}"
       ];
@@ -100,7 +101,7 @@ in {
         animate_manual_resizes = true;
         mouse_move_focuses_monitor = true;
         enable_swallow = true;
-        swallow_regex = "kitty|thunar";
+        swallow_regex = "footclient|thunar";
       };
 
       layerrule = [
@@ -115,7 +116,7 @@ in {
       ];
 
       bind = [
-        "$MOD, RETURN, exec, kitty"
+        "$MOD, RETURN, exec, footclient"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
         "$MOD, backspace, exec, wlogout"
@@ -174,7 +175,7 @@ in {
         "fullscreen,title:wlogout"
 
         "idleinhibit focus, class:^(mpv)$"
-        "idleinhibit focus,class:kitty"
+        "idleinhibit focus,class:footclient"
 
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,title:^(Firefox — Sharing Indicator)$"

@@ -2,7 +2,7 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = "Cartograph Mono CF";
+      name = "CartographCF Nerd Font";
       size = 12;
     };
 
