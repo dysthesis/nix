@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{inputs, pkgs, ...}: {
   nix = {
     package = pkgs.nixFlakes;
     settings = {
@@ -13,6 +13,9 @@
       options = "--delete-older-than 7d";
     };
   };
-  # nixpkgs.config.allowUnfree = true;
+  nixpkgs = {
+    overlays = [
+      inputs.nur.overlay
+    ];
+  };
 }
-
