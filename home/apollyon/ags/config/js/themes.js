@@ -20,7 +20,7 @@ Theme({
   "radii": 8,
   "popover_padding_multiplier": 1.4,
 
-  "color.red": "#ff7eb6",
+  "color.red": "#ed5d53",
   "color.green": "#42be65",
   "color.yellow": "#33b1ff",
   "color.blue": "#08bdba",
@@ -31,9 +31,9 @@ Theme({
   "theme.scheme": "dark",
   "theme.bg": "#161616",
   "theme.fg": "#ffffff",
-  "theme.accent.accent": "$blue",
+  "theme.accent.accent": "#ed5d53",
   "theme.accent.fg": "$bg-color",
-  "theme.accent.gradient": "to right, $accent, lighten($accent, 14%)",
+  // "theme.accent.gradient": "to right, $accent, lighten($accent, 14%)",
   "theme.widget.bg": "$fg-color",
   "theme.widget.opacity": 94,
 

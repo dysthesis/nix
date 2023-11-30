@@ -27,7 +27,7 @@ in {
 
     extraCss = ''
       * {
-        transition: 200ms ease-out;
+        transition: 50ms ease-out;
         color: #ffffff;
         font-family: JetBrainsMono Nerd Font;
         font-size: 1.1rem;
@@ -42,7 +42,7 @@ in {
       }
 
       #match:selected {
-        background: rgba(120, 169, 255, 1);
+        background: rgba(237, 93, 83, 1);
       }
 
       #match {
