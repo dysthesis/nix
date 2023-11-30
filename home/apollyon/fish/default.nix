@@ -38,8 +38,8 @@
       la = "eza --icons -la";
       gc = "git commit -am";
       ga = "git add -A";
-      rebuild = "sudo nixos-rebuild switch --flake /home/apollyon/Dotfiles#phobos";
-      update = "nix flake update --commit-lock-file /home/apollyon/Dotfiles";
+      rebuild = "sudo nixos-rebuild switch --flake /home/apollyon/Nix#phobos";
+      update = "nix flake update --commit-lock-file /home/apollyon/Nix";
       doom = "~/.config/emacs/bin/doom";
     };
 
