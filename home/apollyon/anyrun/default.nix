@@ -28,7 +28,7 @@ in {
     extraCss = ''
       * {
         color: #ffffff;
-        font-family: JetBrainsMono Nerd Font;
+        font-family: CartographCF Nerd Font;
         font-size: 1.1rem;
       }
 

@@ -32,7 +32,7 @@
 
     fontconfig = {
       defaultFonts = {
-        monospace = [ "JetBrainsMono Nerd Font" "Noto Color Emoji" ];
+        monospace = [ "CartographCF Nerd Font" "Noto Color Emoji" ];
         sansSerif = [ "Roboto" "Noto Color Emoji" ];
         serif = [ "Noto Serif" "Noto Color Emoji" ];
         emoji = [ "Noto Color Emoji" ];
