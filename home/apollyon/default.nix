@@ -1,6 +1,7 @@
 {inputs, ...}: {
   imports = [
     ./hyprland
+    ./firefox
     ./kitty
     ./anyrun
     ./theme

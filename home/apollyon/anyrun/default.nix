@@ -22,12 +22,11 @@ in {
       hidePluginInfo = true;
       closeOnClick = true;
       y.fraction = 0.02;
-      showResultsImmediately = true;
+      showResultsImmediately = false;
     };
 
     extraCss = ''
       * {
-        transition: 50ms ease-out;
         color: #ffffff;
         font-family: JetBrainsMono Nerd Font;
         font-size: 1.1rem;
