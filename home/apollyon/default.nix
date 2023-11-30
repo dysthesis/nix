@@ -1,8 +1,7 @@
 {inputs, ...}: {
   imports = [
     ./hyprland
-    ./thunderbird
-    ./firefox
+    # ./firefox
     ./kitty
     ./anyrun
     ./theme

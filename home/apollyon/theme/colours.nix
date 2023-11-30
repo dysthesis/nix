@@ -1,7 +1,5 @@
-{ config, lib, pkgs, ... }:
+{ inputs, ... }:
 
 {
-  imports = [
-    ./palettes/oxocarbon.nix
-  ];
+  colorscheme = inputs.nix-colors.lib.schemeFromYAML "oxocarbon-dark" (builtins.readFile ./palettes/base16-oxocarbon-dark.yaml);
 }

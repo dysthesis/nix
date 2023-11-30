@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    firefox
     thunderbird
     xfce.thunar
     xfce.thunar-volman
