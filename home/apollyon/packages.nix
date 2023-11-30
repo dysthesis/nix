@@ -1,5 +1,6 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [
+home.packages = with pkgs; [
+    fontforge
     firefox
     thunderbird
     xfce.thunar
@@ -13,10 +14,10 @@
     libsForQt5.ark
     noto-fonts-emoji
     (nerdfonts.override {
-      fonts = [
-        "JetBrainsMono"
-        "CascadiaCode"
-      ];
+        fonts = [
+            "JetBrainsMono"
+            "CascadiaCode"
+        ];
     })
   ];
 }
