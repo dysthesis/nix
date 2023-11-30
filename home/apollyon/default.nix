@@ -2,6 +2,10 @@
   imports = [
     ./hyprland
     ./zathura
+    ./bash
+    ./fish
+    ./neofetch
+    ./starship
     # ./firefox
     ./kitty
     ./anyrun
