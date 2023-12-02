@@ -1,17 +1,11 @@
-{
-  config,
-  lib,
-  inputs,
-  pkgs,
-  ...
-}: {
-  imports = [inputs.lanzaboote.nixosModules.lanzaboote];
+{ config, lib, inputs, pkgs, ... }: {
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
 
-  environment.systemPackages = with pkgs; [sbctl];
+  environment.systemPackages = with pkgs; [ sbctl ];
 
   boot = {
-    kernelModules = ["kvm-amd"];
-    extraModulePackages = [];
+    kernelModules = [ "kvm-amd" ];
+    extraModulePackages = [ ];
 
     loader = {
       systemd-boot = {
@@ -43,30 +37,28 @@
       verbose = false;
       systemd.enable = true;
 
-      availableKernelModules =
-        [
-          "nvme"
-          "xhci_pci"
-          "ahci"
-          "usb_storage"
-          "sd_mod"
-          "dm_mod"
-          "dm_crypt"
-          "cryptd"
-          "tpm_tis"
-        ]
-        ++ config.boot.initrd.luks.cryptoModules;
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usb_storage"
+        "sd_mod"
+        "dm_mod"
+        "dm_crypt"
+        "cryptd"
+        "tpm_tis"
+      ] ++ config.boot.initrd.luks.cryptoModules;
 
-      kernelModules = ["amdgpu"];
+      kernelModules = [ "amdgpu" ];
     };
 
-    supportedFilesystems = ["zfs"];
+    supportedFilesystems = [ "zfs" ];
 
     # Use the xanmod kernel
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    # kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
     # Use the hardened kernel
-    # kernelPackages = pkgs.linuxPackages_hardened;
+    kernelPackages = pkgs.linuxPackages_hardened;
 
     tmp = {
       useTmpfs = lib.mkDefault true;

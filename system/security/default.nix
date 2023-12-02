@@ -12,7 +12,7 @@ _: {
   security = {
     # lockKernelModules = true;
     protectKernelImage = true;
-    allowSimultaneousMultithreading = false;
+    allowSimultaneousMultithreading = true;
     forcePageTableIsolation = true;
   };
 }

@@ -27,18 +27,6 @@ in {
       name = "Tela-black-dark";
       package = pkgs.tela-icon-theme;
     };
-
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-
-    gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
   };
 
   home = {
