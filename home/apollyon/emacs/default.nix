@@ -1,25 +1,21 @@
-{
-  pkgs,
-  ...
-}: {
+{ pkgs, ... }: {
   programs.emacs = {
     enable = true;
     package = pkgs.emacs29-pgtk;
-    extraPackages = epkgs: with epkgs; [
-      vterm
-      magit
-      pdf-tools
-      which-key
-      company
-      ripgrep
-      python
-      djvu
-    ];
+    extraPackages = epkgs:
+      with epkgs; [
+        vterm
+        magit
+        pdf-tools
+        which-key
+        company
+        ripgrep
+        python
+        djvu
+      ];
   };
 
-  services.emacs = {
-    enable = true;
-  };
+  services.emacs = { enable = true; };
 
   home.packages = with pkgs; [
     ## Emacs itself
@@ -27,6 +23,8 @@
     # 28.2 + native-comp
     dash
     cmake
+
+    fava # Web interface for Beancount
 
     shellcheck
     shfmt
@@ -42,7 +40,7 @@
     python311Packages.pytest
     ## Doom dependencies
     git
-    (ripgrep.override {withPCRE2 = true;})
+    (ripgrep.override { withPCRE2 = true; })
     gnutls # for TLS connectivity
 
     ## Optional dependencies
@@ -52,7 +50,7 @@
 
     ## Module dependencies
     # :checkers spell
-    (aspellWithDicts (ds: with ds; [en en-computers en-science]))
+    (aspellWithDicts (ds: with ds; [ en en-computers en-science ]))
     # :tools editorconfig
     editorconfig-core-c # per-project style config
     # :tools lookup & :lang org +roam
