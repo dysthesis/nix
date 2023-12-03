@@ -133,6 +133,28 @@ Create the directories which will be the mountpoints of our ZFS datasets, as wel
 mkdir -p /mnt/{boot,nix,home,etc/{secureboot,nixos,NetworkManager/system-connections,ssh},var/lib/{flatpak,libvirt,bluetooth},srv}
 #+end_src
 
+The following directory structure should be produced:
+
+#+begin_src
+/mnt
+├── boot
+├── nix
+├── home
+├── etc
+│   ├── machine-id
+│   ├── NetworkManager
+│   │   ├── system-connections  [error opening dir]
+│   ├── nixos
+│   ├── secureboot
+│   └── ssh
+├── srv
+└── var
+    └── lib
+        ├── bluetooth
+        ├── flatpak
+        └── libvirt
+#+end_src
+
 Now, mount the datasets we have just created. Begin with the =styx/nixos/nix= dataset.
 
 #+begin_src bash
@@ -150,6 +172,25 @@ Before we continue with the rest of our datasets, create the directories in =/mn
 
 #+begin_src bash
 mkdir -p /mnt/nix/persist/{etc/{secureboot,nixos,NetworkManager/system-connections,ssh},var/lib/{flatpak,libvirt,bluetooth},srv}
+#+end_src
+
+The following directory structure should be produced:
+
+#+begin_src
+/mnt/nix/persist
+├── etc
+│   ├── machine-id
+│   ├── NetworkManager
+│   │   ├── system-connections  [error opening dir]
+│   ├── nixos
+│   ├── secureboot
+│   └── ssh
+├── srv
+└── var
+    └── lib
+        ├── bluetooth
+        ├── flatpak
+        └── libvirt
 #+end_src
 
 Lastly, we mount our user's home dataset.
