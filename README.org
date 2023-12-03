@@ -24,3 +24,167 @@ Self-explanatory, defines system-wide configuration.
 
 ** Home
 ** TODO Modules
+
+* Installation
+** Partitioning the disk
+The disk should be partitioned into three: a boot partition, a swap partition, and a root partition. The table below provides more detail.
+
+| Number | Name | Code | Size     |
+|--------+------+------+----------|
+|      1 | boot | EF00 | 1GiB     |
+|      2 | swap | 8200 | 16GiB    |
+|      3 | root | 8309 | 100%FREE |
+
+** Formatting the partitions
+Set a variable pointing to your disk.
+
+#+begin_src bash
+DISK=/dev/nvme0n1
+#+end_src
+
+*** Boot
+The boot partition should be formatted as =FAT=. A ZFS boot is theoretically possible, but this is the most straightforward and bulletproof way. NixOS also provides the ability for system rollbacks, making a ZFS boot largely unnecessary.
+
+#+begin_src bash
+mkfs.vfat -F 32 ${DISK}p1
+#+end_src
+
+*** Swap
+The swap should be left alone; NixOS is able to handle random encryption by itself without us having to do anything. This would mean, however, that hibernation is not possible. I do not need hibernation, but if you do, it is imperative that you adjust this step appropriately.
+
+*** Root
+Create a LUKS container on the last partition.
+
+#+begin_src bash
+cryptsetup luksFormat --key-size 512 ${DISK}p3
+#+end_src
+
+You will be prompted for a password to encrypt the container with.
+
+** Creating an ephemeral root
+This configuration uses impermanence, which means that the root directory will be destroyed on shutdown and reconstructed by Nix when the system boots up. The advantages of this approach includes ensurance of the reproducibility of the configuration, the self-destruction of system logs (could be a disadvantage, depending on your use case), and other benefits that comes with statelessness.
+
+There are a few different approaches to impermance. Graham Christensen, who, as far as I understand, first proposed the idea, recommended the use of ZFS rollbacks in his article, [[https://grahamc.com/blog/erase-your-darlings/][Erase your darlings]]. The advantage of this approach is the protection from accidental deletion of data; if anything goes wrong, it is always possible to go back via another ZFS rollback.
+
+However, this configuration uses the approach proposed by Elis Hirwing in [[https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/][NixOS ❄: tmpfs as root]] instead. As the title indicates, this means that our =/= directory will be located in =tmpfs=, /i.e./ RAM or swap. This does not lend the same safety net as Graham Christensen's approach, but is more straightforward and adds further guarantee on the deletion of state data, including logs.
+
+*Note.* Xe Iaso also describes the same approach in [[https://xeiaso.net/blog/paranoid-nixos-2021-07-18/][Paranoid NixOS]]. As the title suggests, the article also contains a myriad of other advice on improving the security of your NixOS system.
+
+With that said, we can now create our ephemeral root.
+
+#+begin_src bash
+mount -t tmpfs none /mnt
+#+end_src
+
+** Create the ZFS pool and datasets
+Open the LUKS container previously created in the third partition:
+
+#+begin_src bash
+cryptsetup open ${DISK}p3 cryptroot
+#+end_src
+
+First, begin by creating the ZFS pool.
+
+#+begin_src bash
+zpool create \
+    -o ashift=12 \
+    -o autotrim=on \
+    -O acltype=posixacl \
+    -O canmount=off \
+    -O normalization=formD \
+    -O dnodesize=auto \
+    -O compression=zstd \
+    -O relatime=on \
+    -O xattr=sa \
+    -O mountpoint=/ \
+    -R /mnt \
+    styx \
+    /dev/mapper/cryptroot
+#+end_src
+
+It might be necessary to adjust a few things:
+
+- =autotrim=on=: this is necessary for SSDs. It's unnecessary for HDDs, but it is unclear to me if it is harmful to keep in that case.
+- =compression=zstd=: compared to the alternative, =lz4=, =zstd= provides better compression at the cost of slower read/write speeds. I have personally never noticed the difference in the speed, but if that is essential to you, you might want to change this to =compression=lz4= instead.
+- =styx=: this is what I call my ZFS pools, you can name it as you desire.
+
+Then, create the datasets. Keep in mind that Nix handles the mountpoint of datasets, so it is necessary to set =mountpoint=legacy= for datasets we want to mount.
+
+#+begin_src bash
+zfs create -o mountpoint=none   styx/home           # this dataset will not be mounted
+zfs create -o mountpoint=none   styx/nixos          # neither will this one
+zfs create -o mountpoint=legacy styx/home/apollyon  # change this to your username
+zfs create -o mountpoint=legacy styx/nixos/nix
+zfs create -o mountpoint=legacy styx/nixos/persist
+#+end_src
+
+=styx/nixos/nix= will contain the =/nix/store=, which is where Nix stores every single package, as well as any Home-manager files.
+
+While we did previously mention that our root will be ephemeral to ensure statelessness, there are some state information that we want to keep, such as NetworkManager connections. These /persistent/ state information will be stored in =styx/nixos/persist=.
+
+Create the directories which will be the mountpoints of our ZFS datasets, as well as those containing persistent state information.
+
+#+begin_src bash
+mkdir -p /mnt/{boot,nix,home,etc/{secureboot,nixos,NetworkManager/system-connections,ssh},var/lib/{flatpak,libvirt,bluetooth},srv}
+#+end_src
+
+Now, mount the datasets we have just created. Begin with the =styx/nixos/nix= dataset.
+
+#+begin_src bash
+mount -t zfs styx/nixos/nix /mnt/nix
+#+end_src
+
+Then, the =styx/nixos/persist= dataset.
+
+#+begin_src bash
+mkdir /mnt/nix/persist
+mount -t zfs styx/nixos/persist /mnt/nix/persist
+#+end_src
+
+Before we continue with the rest of our datasets, create the directories in =/mnt/nix/persist= corresponding to our persistent state information.
+
+#+begin_src bash
+mkdir -p /mnt/nix/persist/{etc/{secureboot,nixos,NetworkManager/system-connections,ssh},var/lib/{flatpak,libvirt,bluetooth},srv}
+#+end_src
+
+Lastly, we mount our user's home dataset.
+
+#+begin_src bash
+mkdir -p /mnt/home/apollyon
+mount -t zfs styx/home/apollyon /mnt/home/apollyon
+#+end_src
+
+** Installing the system
+Copy this configuration into the directory of your choice. My personal preference is in my user's home directory to allow for easy editing, but it would not be appropriate to do so for a multi-user setup.
+
+Adjust the hardware configurations, specifically the partition UUIDs and such on =hosts/phobos=, and the user and root passwords in =system/general/users.nix=. Keep in mind to not make the users mutable, as it would cause issues in an impermanent system.
+
+You can get a password hash by using the following command:
+
+#+begin_src bash
+mkpasswd -m SHA-512
+#+end_src
+
+Enter the password as desired, and replace the password hash in the configuration file with the output of that command.
+
+If desired, the flake lock can be updated before installation to ensure the use of the latest packages. This might cause issues, so do it at your own risk. Doing this would necessitate the configuration of a git username and email:
+
+#+begin_src bash
+git config user.name "Your name"
+git config user.email "your@email.com"
+#+end_src
+
+Then, update the flake lock.
+
+#+begin_src bash
+nix flake update --commit-lock-file .
+#+end_src
+
+Finally, install the system and apply the configuration.
+
+#+begin_src bash
+nixos-install \
+    --root /mnt \
+    --no-root-passwd \  # we have already set a root password in the configuration
+--flake .#phobos
+#+end_src

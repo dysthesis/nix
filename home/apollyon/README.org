@@ -1,0 +1,56 @@
+#+title: Apollyon
+
+My personal user configurations and dotfiles.
+
+* Display
+** Hyprland
+My window manager of choice, due to the fact that it's on Wayland, it's simple to configure, and it's fast (written in C++). Might try XMonad at some point, though.
+
+The configurations for it is documented [[file:./hyprland/README.org][here]].
+
+** AGS
+Short for [[https://github.com/Aylur/ags][Aylur's GTK shell]], it is a newer alternative to the more established EWW (Elkowar's Wacky Widgets) that utilises GJS instead of Yuck. Here, it is used as a bar and a notification daemon, but it can be used for so much more.
+
+I don't know enough GJS yet to write my own configurations, the configurations here is largely stolen from [[https://github.com/RoccoRakete/hyprland-dots][RoccoRakete's hyprland-dots]] and modified to suit my own needs.
+
+The configurations for it is documented [[file:./ags/README.org][here]].
+
+*** Ideas
+- [ ] Org-agenda TODO module
+- [ ] Weather module
+
+** Themes
+This module contains configurations for GTK and QT themes, as well as [[https://github.com/Misterio77/nix-colors][nix-colors]]. Currently, the [[https://github.com/nyoom-engineering/oxocarbon.nvim][Oxocarbon colour scheme]] is in use.
+
+The documentation for it can be found [[file:./theme/README.org][here]].
+
+* Launchers
+** Anyrun
+A launcher inspired by KDE Plasma's KRunner, and one which I have very recently switched to and have so far enjoyed more than Rofi.
+
+Unlike Rofi, which has many different modes for different tasks (/e.g./ =drun=, =filebrowser=, =calc=, etc.), Anyrun combines them into one view.
+
+The documentation for it can be found [[file:./anyrun/README.org][here]].
+
+** Rofi
+I used to use this in the past, and it served my needs very well. However, I just found Anyrun nicer to use.
+
+The documentation for it can be found [[file:./rofi/README.org][here]].
+
+* Editors
+** Emacs
+I use Doom Emacs. However, I found that, at least as of right now, [[https://github.com/nix-community/nix-doom-emacs][nix-doom-emacs]] is too buggy to use. The [[https://github.com/doomemacs/doomemacs/blob/master/docs/getting_started.org#nixos][official documentation]] also does not mention NDE, so I'll stick to the standard installation procedure for now.
+
+The documentation for it can be found [[file:./emacs/README.org][here]].
+
+** TODO Neovim
+
+* Web browsers
+** Firefox
+
+* Terminals
+** Foot
+** Kitty
+
+* Miscellaneous utilities
+** Zathura
