@@ -62,6 +62,7 @@ cryptsetup luksFormat --key-size 512 ${DISK}p3
 You will be prompted for a password to encrypt the container with.
 
 ** Creating an ephemeral root
+*** Preamble on impermanence
 This configuration uses impermanence, which means that the root directory will be destroyed on shutdown and reconstructed by Nix when the system boots up. The advantages of this approach includes ensurance of the reproducibility of the configuration, the self-destruction of system logs (could be a disadvantage, depending on your use case), and other benefits that comes with statelessness.
 
 There are a few different approaches to impermance. Graham Christensen, who, as far as I understand, first proposed the idea, recommended the use of ZFS rollbacks in his article, [[https://grahamc.com/blog/erase-your-darlings/][Erase your darlings]]. The advantage of this approach is the protection from accidental deletion of data; if anything goes wrong, it is always possible to go back via another ZFS rollback.
@@ -70,6 +71,7 @@ However, this configuration uses the approach proposed by Elis Hirwing in [[http
 
 *Note.* Xe Iaso also describes the same approach in [[https://xeiaso.net/blog/paranoid-nixos-2021-07-18/][Paranoid NixOS]]. As the title suggests, the article also contains a myriad of other advice on improving the security of your NixOS system.
 
+*** Mounting tmpfs as root
 With that said, we can now create our ephemeral root.
 
 #+begin_src bash
@@ -83,6 +85,7 @@ Open the LUKS container previously created in the third partition:
 cryptsetup open ${DISK}p3 cryptroot
 #+end_src
 
+*** Create the ZFS pool
 First, begin by creating the ZFS pool.
 
 #+begin_src bash
@@ -108,6 +111,7 @@ It might be necessary to adjust a few things:
 - =compression=zstd=: compared to the alternative, =lz4=, =zstd= provides better compression at the cost of slower read/write speeds. I have personally never noticed the difference in the speed, but if that is essential to you, you might want to change this to =compression=lz4= instead.
 - =styx=: this is what I call my ZFS pools, you can name it as you desire.
 
+*** Create the ZFS datasets
 Then, create the datasets. Keep in mind that Nix handles the mountpoint of datasets, so it is necessary to set =mountpoint=legacy= for datasets we want to mount.
 
 #+begin_src bash
@@ -122,6 +126,7 @@ zfs create -o mountpoint=legacy styx/nixos/persist
 
 While we did previously mention that our root will be ephemeral to ensure statelessness, there are some state information that we want to keep, such as NetworkManager connections. These /persistent/ state information will be stored in =styx/nixos/persist=.
 
+*** Mount the ZFS datasets
 Create the directories which will be the mountpoints of our ZFS datasets, as well as those containing persistent state information.
 
 #+begin_src bash
@@ -157,6 +162,7 @@ mount -t zfs styx/home/apollyon /mnt/home/apollyon
 ** Installing the system
 Copy this configuration into the directory of your choice. My personal preference is in my user's home directory to allow for easy editing, but it would not be appropriate to do so for a multi-user setup.
 
+*** Adjust the configuration
 Adjust the hardware configurations, specifically the partition UUIDs and such on =hosts/phobos=, and the user and root passwords in =system/general/users.nix=. Keep in mind to not make the users mutable, as it would cause issues in an impermanent system.
 
 You can get a password hash by using the following command:
@@ -167,6 +173,7 @@ mkpasswd -m SHA-512
 
 Enter the password as desired, and replace the password hash in the configuration file with the output of that command.
 
+*** Updating the flake
 If desired, the flake lock can be updated before installation to ensure the use of the latest packages. This might cause issues, so do it at your own risk. Doing this would necessitate the configuration of a git username and email:
 
 #+begin_src bash
@@ -180,6 +187,7 @@ Then, update the flake lock.
 nix flake update --commit-lock-file .
 #+end_src
 
+*** Installing the system and applying the configuration
 Finally, install the system and apply the configuration.
 
 #+begin_src bash
