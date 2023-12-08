@@ -1,18 +1,17 @@
-import { readFile } from 'resource:///com/github/Aylur/ags/utils.js';
-import App from 'resource:///com/github/Aylur/ags/app.js';
-const pkgjson = JSON.parse(readFile(App.configDir + '/package.json'));
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 
-const expectedVersion = pkgjson.version;
-let config = {};
+const myLabel = Widget.Label ({
+  label: 'Test widget',
+})
 
-if (pkg.version === expectedVersion) {
-    config = (await import('./js/main.js')).default;
+const myBar = Widget.Window ({
+  name: 'bar',
+  anchor: ['top', 'left', 'right'],
+  child: myLabel,
+})
+
+export default {
+    windows: [
+      myBar
+    ]
 }
-else {
-    print('your ags version is ' + pkg.version);
-    print('my config uses the git branch which is ' + expectedVersion);
-    print('update ags to the current git version');
-    App.connect('config-parsed', app => app.Quit());
-}
-
-export default config;
