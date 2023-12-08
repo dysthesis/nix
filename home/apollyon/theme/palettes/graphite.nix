@@ -4,23 +4,22 @@ _: {
     name = "Graphite";
     kind = "dark";
     colors = {
-      base00 = "#000000"; # assuming darkest black for background
-      base01 = "#030303"; # from SCSS file ($type == 'f')
-      base02 = "#0F0F0F"; # from SCSS file ($type == 'g')
-      base03 = "#121212"; # from SCSS file ($type == 'h')
-      base04 = "#1F1F1F"; # extrapolated for lighter black
-      base05 = "#242424"; # extrapolated for default foreground
-      base06 = "#2C2C2C"; # extrapolated for lighter foreground
-      base07 = "#3C3C3C"; # extrapolated for lightest grey
-      # Accent colors (extrapolated, feel free to customize)
-      base08 = "#ff5555"; # Red
-      base09 = "#fabe2c"; # Orange
-      base0A = "#f3f99d"; # Yellow
-      base0B = "#5af78e"; # Green
-      base0C = "#9aedfe"; # Cyan
-      base0D = "#57c7ff"; # Blue
-      base0E = "#ff6ac1"; # Magenta
-      base0F = "#bdb6c5"; # Light Grey
+      base00 = "#000000";
+      base01 = "#030303";
+      base02 = "#0F0F0F";
+      base03 = "#121212";
+      base04 = "#FFFFFF";
+      base05 = "#FAFAFA";
+      base06 = "#F2F2F2";
+      base07 = "#CCCCCC";
+      base08 = "#ff5555";
+      base09 = "#fabe2c";
+      base0A = "#f3f99d";
+      base0B = "#5af78e";
+      base0C = "#9aedfe";
+      base0D = "#57c7ff";
+      base0E = "#ff6ac1";
+      base0F = "#bdb6c5";
     };
   };
 }
