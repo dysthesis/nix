@@ -1,26 +1,20 @@
-{ pkgs, ... }: let
-  phocus-oxocarbon = pkgs.callPackage ../../../packages/oxocarbon-gtk {  };
+{ pkgs, ... }:
+let phocus-oxocarbon = pkgs.callPackage ../../../packages/oxocarbon-gtk { };
 in {
-  home.packages = with pkgs; [
-    font-awesome
-    adw-gtk3
-    nerdfonts
-  ];
+  home.packages = with pkgs; [ font-awesome adw-gtk3 nerdfonts ];
 
-  home.sessionVariables = {
-    GTK_THEME = "phocus";
-  };
+  home.sessionVariables = { GTK_THEME = "phocus"; };
 
-  imports = [
-    ./colours.nix
-  ];
+  imports = [ ./colours.nix ];
 
   gtk = {
     enable = true;
 
     theme = {
       name = "phocus";
-      package = phocus-oxocarbon;
+      package = pkgs.graphite-gtk-theme.override {
+        tweaks = [ "black" "rimless" "float" ];
+      };
     };
 
     iconTheme = {
@@ -40,7 +34,8 @@ in {
   };
   qt = {
     enable = true;
-    platformTheme = "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
+    platformTheme =
+      "gtk"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
     style = {
       package = pkgs.lightly-qt;
       name = "Lightly";
