@@ -22,6 +22,7 @@
       gelasio
       overpass
       lato
+      inter
       noto-fonts-cjk
       noto-fonts-emoji
       (nerdfonts.override {
@@ -38,8 +39,8 @@
 
     fontconfig = {
       defaultFonts = {
-        monospace = [ "JetBrainsMOno Nerd Font" "Noto Color Emoji" ];
-        sansSerif = [ "Lato" "Noto Color Emoji" ];
+        monospace = [ "JetBrainsMono Nerd Font" "Noto Color Emoji" ];
+        sansSerif = [ "Inter Display" "Noto Color Emoji" ];
         serif = [ "Noto Serif" "Noto Color Emoji" ];
         emoji = [ "Noto Color Emoji" ];
       };

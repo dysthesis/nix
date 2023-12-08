@@ -25,7 +25,7 @@ in {
       * {
         color: #${base04};
         font-family: JetBrainsMono Nerd Font;
-        font-size: 1rem;
+        font-size: 1.2rem;
       }
 
       #window,

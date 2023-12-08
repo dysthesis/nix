@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{ pkgs, inputs, ... }: {
       # List packages installed in system profile. To search, run:
       # $ nix search wget
       environment.systemPackages = with pkgs;
@@ -30,6 +26,8 @@
                   lazygit
                   openssl
                   zip
+
+                  vulnix
 
                   # SDDM
                   libsForQt5.qt5.qtgraphicaleffects
@@ -73,11 +71,10 @@
                   ffmpeg
                   fd
                   usbguard
-            ]
-            ++ [
-                  #inputs.nh.packages.${pkgs.system}.default
-                  inputs.alejandra.defaultPackage.${pkgs.system}
-            ];
+    ] ++ [
+          #inputs.nh.packages.${pkgs.system}.default
+          inputs.alejandra.defaultPackage.${pkgs.system}
+    ];
 
-      # services.flatpak.enable = true;
+  # services.flatpak.enable = true;
 }

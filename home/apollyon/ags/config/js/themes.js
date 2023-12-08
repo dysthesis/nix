@@ -45,7 +45,7 @@ Theme({
   // "hypr.inactive_border": "rgba(333333ff)",
   // "hypr.wm_gaps": 6,
 
-  "font.font": "Lato",
+  "font.font": "JetBrainsMono Nerd Font",
   "font.mono": "JetBrainsMono Nerd Font",
   "font.size": 13,
 
