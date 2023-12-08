@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 let anyrunPkgs = inputs.anyrun.packages.${pkgs.system};
 in {
   programs.anyrun = {
