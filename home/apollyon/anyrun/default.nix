@@ -1,9 +1,5 @@
-{
-  inputs,
-  pkgs,
-  ...
-}: let
-  anyrunPkgs = inputs.anyrun.packages.${pkgs.system};
+{ inputs, pkgs, ... }:
+let anyrunPkgs = inputs.anyrun.packages.${pkgs.system};
 in {
   programs.anyrun = {
     enable = true;
@@ -21,15 +17,15 @@ in {
       width.fraction = 0.3;
       hidePluginInfo = true;
       closeOnClick = true;
-      y.fraction = 0.02;
+      y.fraction = 2.0e-2;
       showResultsImmediately = false;
     };
 
-    extraCss = ''
+    extraCss = with config.colorscheme.colors; ''
       * {
-        color: #ffffff;
-        font-family: CartographCF Nerd Font;
-        font-size: 1.1rem;
+        color: ${base04};
+        font-family: JetBrainsMono Nerd Font;
+        font-size: 1rem;
       }
 
       #window,
@@ -41,7 +37,7 @@ in {
       }
 
       #match:selected {
-        background: rgba(237, 93, 83, 1);
+        background: ${base0D};
       }
 
       #match {
@@ -54,8 +50,8 @@ in {
       }
 
       box#main {
-        background: rgba(22, 22, 22, 1);
-        border: 1px solid #ffffff;
+        background: ${base00};
+        border: 1px solid ${base04};
         border-radius: 12px;
         padding: 8px;
       }
