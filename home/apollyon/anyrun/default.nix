@@ -1,5 +1,5 @@
 { config, inputs, pkgs, ... }:
-let anyrunPkgs = inputs.anyrun.packages.${pkgs.system};
+let anyrunPkgs = inputs.anyrun.packages.#${pkgs.system};
 in {
   programs.anyrun = {
     enable = true;
@@ -11,7 +11,7 @@ in {
         stdin
         translate
         shell
-        # inputs.anyrun-nixos-options.packages.${pkgs.system}.default
+        # inputs.anyrun-nixos-options.packages.#${pkgs.system}.default
       ];
 
       width.fraction = 0.3;
@@ -23,7 +23,7 @@ in {
 
     extraCss = with config.colorscheme.colors; ''
       * {
-        color: ${base04};
+        color: #${base04};
         font-family: JetBrainsMono Nerd Font;
         font-size: 1rem;
       }
@@ -37,7 +37,7 @@ in {
       }
 
       #match:selected {
-        background: ${base0D};
+        background: #${base0D};
       }
 
       #match {
@@ -50,8 +50,8 @@ in {
       }
 
       box#main {
-        background: ${base00};
-        border: 1px solid ${base04};
+        background: #${base00};
+        border: 1px solid #${base04};
         border-radius: 12px;
         padding: 8px;
       }
