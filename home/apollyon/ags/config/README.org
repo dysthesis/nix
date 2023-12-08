@@ -1,0 +1,27 @@
+#+title: AGS configuration
+#+auto_tangle: y
+
+* Widget
+#+begin_src js :tangle config.js
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+
+const myLabel = Widget.Label ({
+  label: 'Test widget',
+})
+
+const myBar = Widget.Window ({
+  name: 'bar',
+  anchor: ['top', 'left', 'right'],
+  child: myLabel,
+})
+#+end_src
+
+* Export all windows
+The window definitions should be placed in this array:
+#+begin_src js :tangle config.js
+export default {
+    windows: [
+      myBar
+    ]
+}
+#+end_src
