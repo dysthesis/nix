@@ -1,8 +1,14 @@
 { pkgs, ... }: {
   nixpkgs.overlays = [
-    (self: super: { georgia-pro = super.callPackage ../../packages/georgia-fonts { }; })
-    (self: super: { cartograph = super.callPackage ../../packages/cartograph { }; })
-    (self: super: { cartograph-nf = super.callPackage ../../packages/cartograph-nf { }; })
+    (self: super: {
+      georgia-pro = super.callPackage ../../packages/georgia-fonts { };
+    })
+    (self: super: {
+      cartograph = super.callPackage ../../packages/cartograph { };
+    })
+    (self: super: {
+      cartograph-nf = super.callPackage ../../packages/cartograph-nf { };
+    })
   ];
   fonts = {
     packages = with pkgs; [
@@ -32,8 +38,8 @@
 
     fontconfig = {
       defaultFonts = {
-        monospace = [ "CartographCF Nerd Font" "Noto Color Emoji" ];
-        sansSerif = [ "Roboto" "Noto Color Emoji" ];
+        monospace = [ "JetBrainsMOno Nerd Font" "Noto Color Emoji" ];
+        sansSerif = [ "Lato" "Noto Color Emoji" ];
         serif = [ "Noto Serif" "Noto Color Emoji" ];
         emoji = [ "Noto Color Emoji" ];
       };

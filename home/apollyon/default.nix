@@ -7,7 +7,7 @@
     ./neofetch
     ./starship
     # ./firefox
-    ./foot
+    # ./foot
     ./anyrun
     ./theme
     ./emacs

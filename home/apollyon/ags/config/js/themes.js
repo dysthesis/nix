@@ -45,8 +45,8 @@ Theme({
   // "hypr.inactive_border": "rgba(333333ff)",
   // "hypr.wm_gaps": 6,
 
-  "font.font": "CartographCF Nerd Font",
-  "font.mono": "CartographCF Nerd Font",
+  "font.font": "Lato",
+  "font.mono": "JetBrainsMono Nerd Font",
   "font.size": 13,
 
   "applauncher.width": 500,

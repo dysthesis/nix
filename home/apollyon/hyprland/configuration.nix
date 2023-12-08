@@ -12,7 +12,7 @@ in {
         "ags"
         "udiskie"
         "dictionary"
-        "foot -s"
+        # "foot -s"
         "swww init"
         "swww img ${wallpaper}"
         "hyprctl reload"
@@ -100,7 +100,7 @@ in {
         animate_manual_resizes = true;
         mouse_move_focuses_monitor = true;
         enable_swallow = true;
-        swallow_regex = "footclient|thunar";
+        swallow_regex = "wezterm|thunar";
       };
 
       layerrule = [
@@ -115,7 +115,7 @@ in {
       ];
 
       bind = [
-        "$MOD, RETURN, exec, footclient"
+        "$MOD, RETURN, exec, wezterm"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
         "$MOD, backspace, exec, wlogout"
@@ -176,7 +176,7 @@ in {
         "fullscreen,title:wlogout"
 
         "idleinhibit focus, class:^(mpv)$"
-        "idleinhibit focus,class:footclient"
+        "idleinhibit focus,class:wezterm"
 
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,title:^(Firefox — Sharing Indicator)$"

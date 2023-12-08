@@ -8,20 +8,19 @@ with colors; {
     	check_for_updates = false,
     	exit_behavior = "CloseOnCleanExit",
 
+      enable_wayland = false, -- see https://github.com/wez/wezterm/issues/4483
       enable_scroll_bar = true,
 
-    	font_size = 14.0,
+    	font_size = 12.0,
     	font = wezterm.font_with_fallback {
-        "Iosevka Term",
-        "JetBrains Mono Nerd",
-        "Fira Code",
+        "JetBrains Mono Nerd Font",
       },
 
     	audible_bell = "Disabled",
       enable_tab_bar = true,
     	hide_tab_bar_if_only_one_tab = true,
     	default_cursor_style = "SteadyUnderline",
-    	window_background_opacity = 0.85,
+    	window_background_opacity = 1,
 
     	window_padding = {
     		left = 16,
