@@ -1,7 +1,7 @@
 _: {
   boot.initrd.luks.devices = {
     root = {
-      device = "/dev/disk/by-uuid/f64f061a-8e37-4a9c-b170-f4415329ec34";
+      device = "/dev/disk/by-uuid/a80191c5-f37e-437a-be3b-2c3fe59cf890";
       preLVM = true;
       allowDiscards = true;
     };
@@ -41,7 +41,7 @@ _: {
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/B21E-89D9";
+      device = "/dev/disk/by-uuid/07D0-BB40";
       fsType = "vfat";
     };
   };

@@ -55,10 +55,10 @@
     supportedFilesystems = [ "zfs" ];
 
     # Use the xanmod kernel
-    # kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
     # Use the hardened kernel
-    kernelPackages = pkgs.linuxPackages_hardened;
+    #kernelPackages = pkgs.linuxPackages_hardened;
 
     tmp = {
       useTmpfs = lib.mkDefault true;
