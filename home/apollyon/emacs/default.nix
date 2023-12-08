@@ -59,5 +59,9 @@
     texlive.combined.scheme-full
     # :lang beancount
     beancount
+    # :lang rust
+    rust-analyzer
+    # :lang javascript
+    nodePackages_latest.typescript-language-server
   ];
 }
