@@ -1,5 +1,5 @@
-_: let
-  wallpaper = ./wallpaper.jpg;
+_:
+let wallpaper = ./wallpaper.jpg;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -13,8 +13,8 @@ in {
         "udiskie"
         "dictionary"
         "foot -s"
-	      "swww init"
-	      "swww img ${wallpaper}"
+        "swww init"
+        "swww img ${wallpaper}"
         "hyprctl reload"
       ];
       input = {
@@ -22,11 +22,9 @@ in {
         follow_mouse = 1;
       };
       general = {
-        # gaps
-        gaps_in = 6;
-        gaps_out = 12;
+        gaps_in = 5;
+        gaps_out = 10;
 
-        # border thiccness
         border_size = 3;
 
         # active border color
@@ -39,7 +37,7 @@ in {
       };
       decoration = {
         # fancy corners
-        rounding = 12;
+        rounding = 10;
 
         # blur
         blur = {
@@ -86,7 +84,7 @@ in {
         no_gaps_when_only = false;
       };
 
-      master = {new_is_master = false;};
+      master = { new_is_master = false; };
 
       gestures = {
         workspace_swipe = true;
@@ -154,12 +152,14 @@ in {
         "$MOD, mouse_up, workspace, e-1"
       ];
 
-      bindm = ["$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow"];
+      bindm = [ "$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow" ];
       # binds that will be repeated, a.k.a can be held to toggle multiple times
       binde = [
         # volume controls
-        ",XF86AudioRaiseVolume, exec, ags run-js \"audio.speaker.volume += 0.05; indicator.speaker()\""
-        ",XF86AudioLowerVolume, exec, ags run-js \"audio.speaker.volume -= 0.05; indicator.speaker()\""
+        ''
+          ,XF86AudioRaiseVolume, exec, ags run-js "audio.speaker.volume += 0.05; indicator.speaker()"''
+        ''
+          ,XF86AudioLowerVolume, exec, ags run-js "audio.speaker.volume -= 0.05; indicator.speaker()"''
         # ",XF86AudioMute, exec, ${volumectl} -m"
       ];
 

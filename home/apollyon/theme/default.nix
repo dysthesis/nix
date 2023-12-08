@@ -3,7 +3,7 @@ let phocus-oxocarbon = pkgs.callPackage ../../../packages/oxocarbon-gtk { };
 in {
   home.packages = with pkgs; [ font-awesome adw-gtk3 nerdfonts ];
 
-  home.sessionVariables = { GTK_THEME = "phocus"; };
+  # home.sessionVariables = { GTK_THEME = "phocus"; };
 
   imports = [ ./colours.nix ];
 
@@ -11,7 +11,7 @@ in {
     enable = true;
 
     theme = {
-      name = "phocus";
+      name = "Graphite-Dark";
       package = pkgs.graphite-gtk-theme.override {
         tweaks = [ "black" "rimless" "float" ];
       };
