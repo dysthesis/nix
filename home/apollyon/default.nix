@@ -14,6 +14,7 @@
     ./git
     ./ags
     ./lf
+    ./wezterm
     ./packages.nix
   ] ++ [
     inputs.anyrun.homeManagerModules.default
