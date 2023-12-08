@@ -1,0 +1,12 @@
+#+title: AGS configuration
+#+auto_tangle: y
+
+* Windows
+The window definitions should be placed in this array:
+#+begin_src js :tangle config.js
+export default {
+    windows: [
+
+    ]
+}
+#+end_src
