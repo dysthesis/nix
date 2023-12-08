@@ -1,4 +1,4 @@
-{inputs, ...}: {
+{ inputs, ... }: {
   imports = [
     ./hyprland
     ./zathura
@@ -13,6 +13,7 @@
     ./emacs
     ./git
     ./ags
+    ./lf
     ./packages.nix
   ] ++ [
     inputs.anyrun.homeManagerModules.default
@@ -21,16 +22,14 @@
   ];
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
     };
   };
 
   programs.home-manager.enable = true;
 
-  nixpkgs.overlays = [
-    inputs.neovim-nightly-overlay.overlay
-  ];
+  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
 
   home = {
     username = "apollyon";
