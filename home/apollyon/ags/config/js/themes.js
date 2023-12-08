@@ -7,11 +7,11 @@ import { Theme, WP, HOME } from './settings/theme.js';
 export default [
 
 Theme({
-  name: 'Oxocarbon',
+  name: 'Graphite',
   icon: '󰹻 ',
   "workspaces": 10,
   "misc.pywal.theme": "base16-default",
-  "misc.gtk.theme": "phocus",
+  "misc.gtk.theme": "Graphite-dark",
   "misc.gtkIcons.theme": "Tela-black-dark",
 
 
@@ -20,18 +20,18 @@ Theme({
   "radii": 8,
   "popover_padding_multiplier": 1.4,
 
-  "color.red": "#ed5d53",
-  "color.green": "#42be65",
-  "color.yellow": "#33b1ff",
-  "color.blue": "#08bdba",
-  "color.magenta": "#ff7eb6",
-  "color.teal": "#3ddbd9",
-  "color.orange": "#ee5396",
+  "color.red": "#ff5555",
+  "color.green": "#5af78e",
+  "color.yellow": "#f3f99d",
+  "color.blue": "#9aedfe",
+  "color.magenta": "#ff6ac1",
+  "color.teal": "#57c7ff",
+  "color.orange": "#fabe2c",
 
   "theme.scheme": "dark",
   "theme.bg": "#161616",
   "theme.fg": "#ffffff",
-  "theme.accent.accent": "#ed5d53",
+  "theme.accent.accent": "#9aedfe",
   "theme.accent.fg": "$bg-color",
   "theme.accent.gradient": "$accent",
   "theme.widget.bg": "$fg-color",

@@ -1,5 +1,5 @@
 { config, inputs, pkgs, ... }:
-let anyrunPkgs = inputs.anyrun.packages.#${pkgs.system};
+let anyrunPkgs = inputs.anyrun.packages.${pkgs.system};
 in {
   programs.anyrun = {
     enable = true;
