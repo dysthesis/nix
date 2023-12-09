@@ -8,7 +8,7 @@
     delta.enable = true;
     signing = {
       key = "4F41D2DFD42D5568";
-      signByDefault = false;
+      signByDefault = true;
     };
     aliases = {
       c = "commit -am";
