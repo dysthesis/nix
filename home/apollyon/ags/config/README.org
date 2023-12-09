@@ -47,6 +47,7 @@ We then write our =package.json=, which contains some metadata on this configura
 }
 #+end_src
 
+[[https://github.com/Aylur/dotfiles/blob/main/ags/package.json][Aylur's package.json]] appears to also contain =devDependencies=, which appears to be version locks for different packages necessary for AGS, or at least the specific configuration for it, to function. I'm not particularly knowledgeable on JavaScript, and therefore could very well be mistaken on this, but from what I understand, NixOS already handles with version locking packages with flakes anyways, so we'll omit this for now. If this causes issues in the future, add it.
 
 * Structure
 ** JS
