@@ -64,7 +64,6 @@ This directory contains the different windows. As of right now, the following wi
 - [[file:./js/windows/bar/README.org][Bar]]
 - [[file:./js/windows/osd/README.org][On-screen display]]
 - [[./js/windows/dashboard/README.org][Dashboard]]
-- [[./js/windows/lockscreen/README.org][Lock screen]]
 - [[file:./js/windows/powermenu/README.org][Power menu]]
 
 *** Utilities
