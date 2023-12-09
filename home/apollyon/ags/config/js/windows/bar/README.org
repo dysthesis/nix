@@ -1,1 +1,3 @@
 #+title: Bar
+
+A standard bottom bar, because I like it at the bottom.
