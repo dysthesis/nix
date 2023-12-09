@@ -1,4 +1,1 @@
-#+title: AGS configuration
-
-- [[file:./configuration.org][Configuration]]
-- [[file:./styling.org][Stylesheet]]
+#+title: Readme
