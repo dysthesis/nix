@@ -1,5 +1,8 @@
 export default {
     lock: 'system-lock-screen-symbolic',
+    fallback: {
+        executable: 'application-x-executable-symbolic',
+    },
     audio: {
         mic: {
             muted: 'microphone-disabled-symbolic',
@@ -20,6 +23,17 @@ export default {
             card: 'audio-card-symbolic',
         },
         mixer: '',
+    },
+    asusctl: {
+        profile: {
+            Balanced: 'power-profile-balanced-symbolic',
+            Quiet: 'power-profile-power-saver-symbolic',
+            Performance: 'power-profile-performance-symbolic',
+        },
+        mode: {
+            Integrated: '',
+            Hybrid: '󰢮',
+        },
     },
     apps: {
         apps: 'view-app-grid-symbolic',
@@ -92,16 +106,16 @@ export default {
         temp: 'temperature-symbolic',
     },
     dialog: {
-        Search: ' ',
-        Applauncher: '󰵆 ',
-        Bar: ' ',
-        Border: '󰃇 ',
-        Color: '󰏘 ',
-        Desktop: '  ',
-        Font: ' ',
-        General: '󰒓 ',
-        Misc: '󰠱 ',
-        Theme: '󰃟 ',
+        Search: '',
+        Applauncher: '󰵆',
+        Bar: '',
+        Border: '󰃇',
+        Color: '󰏘',
+        Desktop: '',
+        Font: '',
+        General: '󰒓',
+        Miscellaneous: '󰠱',
+        Theme: '󰃟',
         Notifications: '󰂚 ',
     },
 };

@@ -7,6 +7,7 @@ import PanelButton from '../PanelButton.js';
 
 const Indicator = () => Widget.Stack({
     items: [
+        ['false', Widget.Icon({ binds: [['icon', Battery, 'icon-name']] })],
         ['true', FontIcon(icons.battery.charging)],
     ],
     connections: [[Battery, stack => {
@@ -18,17 +19,18 @@ const PercentLabel = () => Widget.Revealer({
     transition: 'slide_right',
     binds: [['reveal-child', options.battery.show_percentage]],
     child: Widget.Label({
-        binds: [['label', Battery, 'percent', p => ` ${p}%`]],
+        binds: [['label', Battery, 'percent', p => `${p}%`]],
     }),
 });
 
 const LevelBar = () => Widget.LevelBar({
     vpack: 'center',
-    binds: [['value', Battery, 'percent', p => p / 100,]],
+    binds: [['value', Battery, 'percent', p => p / 100]],
 });
 
-export default (Service, condition) => {
+export default () => {
     const revaler = PercentLabel();
+
     return PanelButton({
         class_name: 'battery-bar',
         on_clicked: () => {
@@ -45,9 +47,8 @@ export default (Service, condition) => {
             }]],
             children: [
                 Indicator(),
-                LevelBar(),
                 Widget.Box({ child: revaler }),
-
+                LevelBar(),
             ],
         }),
     });

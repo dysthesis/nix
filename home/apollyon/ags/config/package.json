@@ -1,5 +1,5 @@
 {
-    "name": "hyprland-dots",
+    "name": "ags-dotfiles",
     "version": "1.5.5",
     "description": "My config files for AGS",
     "main": "config.js",
@@ -9,13 +9,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/RoccoRakete/hyprland-dots.git"
+        "url": "git+https://github.com/Aylur/dotfiles.git"
     },
-    "author": "RoccoRakete",
+    "author": "Aylur",
     "bugs": {
-        "url": "https://github.com/RoccoRakete/hyprland-dots/issues"
+        "url": "https://github.com/Aylur/dotfiles/issues"
     },
-    "homepage": "https://github.com/RoccoRakete/hyprland-dots#readme",
+    "homepage": "https://github.com/Aylur/dotfiles#readme",
+    "kofi": "https://ko-fi.com/aylur",
     "devDependencies": {
         "@girs/dbusmenugtk3-0.4": "^0.4.0-3.2.0",
         "@girs/gobject-2.0": "^2.76.1-3.2.3",

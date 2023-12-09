@@ -18,9 +18,9 @@ export default {
     apply: apply,
     list: getOptions,
 
-    spacing: Option(2),
+    spacing: Option(9),
     padding: Option(8),
-    radii: Option(5),
+    radii: Option(9),
 
     popover_padding_multiplier: Option(1.4, {
         'category': 'General',
@@ -29,35 +29,14 @@ export default {
         'unit': '',
     }),
 
-    misc: {
-        pywal: {
-            theme: Option('', {
-                'scss': 'exclude',
-
-            })
-        },
-        gtk: {
-            theme: Option('', {
-                'scss': 'exclude',
-
-            })
-        },
-        gtkIcons: {
-            theme: Option('', {
-                'scss': 'exclude',
-
-            })
-        },
-    },
-
     color: {
-        red: Option('#c01c28', { 'scss': 'red' }),
-        green: Option('#2ec27e', { 'scss': 'green' }),
-        yellow: Option('#f5c211', { 'scss': 'yellow' }),
-        blue: Option('#3584e4', { 'scss': 'blue' }),
-        magenta: Option('#813d9c', { 'scss': 'magenta' }),
-        teal: Option('#99c1f1', { 'scss': 'teal' }),
-        orange: Option('#e66100', { 'scss': 'orange' }),
+        red: Option('#e55f86', { 'scss': 'red' }),
+        green: Option('#00D787', { 'scss': 'green' }),
+        yellow: Option('#EBFF71', { 'scss': 'yellow' }),
+        blue: Option('#51a4e7', { 'scss': 'blue' }),
+        magenta: Option('#9077e7', { 'scss': 'magenta' }),
+        teal: Option('#51e6e6', { 'scss': 'teal' }),
+        orange: Option('#E79E64', { 'scss': 'orange' }),
     },
 
     theme: {
@@ -78,11 +57,11 @@ export default {
             'title': 'Color Scheme',
             'scss': 'color-scheme',
         }),
-        bg: Option('#1E1E1E', {
+        bg: Option('#171717', {
             'title': 'Background Color',
             'scss': 'bg-color',
         }),
-        fg: Option('#deddda', {
+        fg: Option('#eeeeee', {
             'title': 'Foreground Color',
             'scss': 'fg-color',
         }),
@@ -131,29 +110,9 @@ export default {
             'title': 'Border Opacity',
             'unit': '',
         }),
-        width: Option(0, {
+        width: Option(1, {
             'category': 'Border',
             'title': 'Border Width',
-        }),
-        barcolor: Option('#ffffff', {
-            'category': 'Border',
-            'title': 'Bar Border color',
-            'scss': 'bar-border-color',
-        }),
-    },
-
-    hypr: {
-        inactive_border: Option('rgba(333333ff)', {
-            'category': 'Border',
-            'title': 'Border on Inactive Windows',
-            'scss': 'exclude',
-        }),
-        wm_gaps: Option(3, {
-            'category': 'General',
-            'scss': 'wm-gaps',
-            'note': 'wm-gaps',
-            'type': 'float',
-            'unit': '',
         }),
     },
 
@@ -165,12 +124,12 @@ export default {
     }),
 
     font: {
-        font: Option('Ubuntu Nerd Font', {
+        font: Option('JetBrainsMono Nerd Font', {
             'type': 'font',
             'title': 'Font',
             'scss': 'font',
         }),
-        mono: Option('Mononoki Nerd Font', {
+        mono: Option('JetBrainsMono Nerd Font', {
             'title': 'Monospaced Font',
             'scss': 'mono-font',
         }),
@@ -191,7 +150,7 @@ export default {
             'enums': ['top', 'bottom'],
             'type': 'enum',
         }),
-        style: Option('floating', {
+        style: Option('normal', {
             'enums': ['floating', 'normal', 'separated'],
             'type': 'enum',
         }),
@@ -215,80 +174,78 @@ export default {
         low: Option(30, { 'category': 'Bar' }),
         medium: Option(50, { 'category': 'Bar' }),
     },
-
-    desktop: {
-        wallpaper: {
-            fg: Option('#fff', { 'scss': 'wallpaper-fg' }),
-            img: Option(themes[0].options['desktop.wallpaper.img'], {
-                'scssFormat': v => `"${v}"`,
-                'type': 'img',
-            }),
-        },
-        avatar: Option(`/var/lib/AccountsService/icons/${USER}`, {
-            'scssFormat': v => `"${v}"`,
-            'type': 'img',
-            'note': 'displayed in quicksettings and locksreen',
-        }),
-        drop_shadow: Option(false, { 'scss': 'drop-shadow' }),
-        shadow: Option('rgba(0, 0, 0, .6)', { 'scss': 'shadow' }),
-    },
-
-    notifications: {
-        black_list: Option(['Spotify'], { 'note': 'app-name | entry' }),
-        position: Option(['top'], { 'note': 'anchor' }),
-        width: Option(450),
-    },
-
-    dashboard: {
-        sys_info_size: Option(70, {
-            'category': 'Desktop',
-            'scss': 'sys-info-size',
-        }),
-    },
-
-    mpris: {
-        black_list: Option(['Caprine'], {
-            'category': 'Bar',
-            'title': 'List of blacklisted mpris players',
-            'note': 'filters for bus-name, name, identity, entry',
-        }),
-        preferred: Option('spotify', {
-            'category': 'Bar',
-            'title': 'Preferred player',
-        }),
-    },
-
-    workspaces: Option(10, {
-        'category': 'Bar',
-        'title': 'No. workspaces on bar and overview',
-        'note': 'Set it to 0 to make it dynamic',
+    avatar: Option(`/var/lib/AccountsService/icons/${USER}`, {
+        'scssFormat': v => `"${v}"`,
+        'type': 'img',
+        'note': 'displayed in quicksettings and locksreen',
     }),
-
-    temperature: '/sys/class/thermal/thermal_zone0/temp',
-    systemFetchInterval: 1000,
-    brightnessctlKBD: 'asus::kbd_backlight',
-    substitutions: {
-        icons: [
-            ['transmission-gtk', 'transmission'],
-            ['blueberry.py', 'bluetooth'],
-            ['Caprine', 'facebook-messenger'],
-            ['', 'preferences-desktop-display'],
-        ],
-        titles: [
-            ['com.github.Aylur.ags', 'AGS'],
-            ['transmission-gtk', 'Transmission'],
-            ['com.obsproject.Studio', 'OBS'],
-            ['com.usebottles.bottles', 'Bottles'],
-            ['com.github.wwmm.easyeffects', 'Easy Effects'],
-            ['org.gnome.TextEditor', 'Text Editor'],
-            ['org.gnome.design.IconLibrary', 'Icon Library'],
-            ['blueberry.py', 'Blueberry'],
-            ['org.wezfurlong.wezterm', 'Wezterm'],
-            ['com.raggesilver.BlackBox', 'BlackBox'],
-            ['firefox', 'Firefox'],
-            ['org.gnome.Nautilus', 'Files'],
-            ['libreoffice-writer', 'Writer'],
-            ['', 'Desktop'],
-        ],
+    screen_corners: Option(true, { 'scss': 'screen-corners' }),
+    clock: {
+        enable: Option(true),
+        position: Option('center center', {
+            'note': 'halign valign',
+        }),
     },
+    drop_shadow: Option(true, { 'scss': 'drop-shadow' }),
+    shadow: Option('rgba(0, 0, 0, .6)', { 'scss': 'shadow' }),
+    },
+
+notifications: {
+    black_list: Option(['Spotify'], { 'note': 'app-name | entry' }),
+    position: Option(['top'], { 'note': 'anchor' }),
+    width: Option(450),
+},
+
+dashboard: {
+    sys_info_size: Option(70, {
+        'category': 'Desktop',
+        'scss': 'sys-info-size',
+    }),
+},
+
+mpris: {
+    black_list: Option(['Caprine'], {
+        'category': 'Bar',
+        'title': 'List of blacklisted mpris players',
+        'note': 'filters for bus-name, name, identity, entry',
+    }),
+    preferred: Option('spotify', {
+        'category': 'Bar',
+        'title': 'Preferred player',
+    }),
+},
+
+workspaces: Option(7, {
+    'category': 'Bar',
+    'title': 'No. workspaces on bar and overview',
+    'note': 'Set it to 0 to make it dynamic',
+}),
+
+temperature: '/sys/class/thermal/thermal_zone0/temp',
+systemFetchInterval: 5000,
+brightnessctlKBD: 'asus::kbd_backlight',
+substitutions: {
+    icons: [
+        ['transmission-gtk', 'transmission'],
+        ['blueberry.py', 'bluetooth'],
+        ['Caprine', 'facebook-messenger'],
+        ['', 'preferences-desktop-display'],
+    ],
+    titles: [
+        ['com.github.Aylur.ags', 'AGS'],
+        ['transmission-gtk', 'Transmission'],
+        ['com.obsproject.Studio', 'OBS'],
+        ['com.usebottles.bottles', 'Bottles'],
+        ['com.github.wwmm.easyeffects', 'Easy Effects'],
+        ['org.gnome.TextEditor', 'Text Editor'],
+        ['org.gnome.design.IconLibrary', 'Icon Library'],
+        ['blueberry.py', 'Blueberry'],
+        ['org.wezfurlong.wezterm', 'Wezterm'],
+        ['com.raggesilver.BlackBox', 'BlackBox'],
+        ['firefox', 'Firefox'],
+        ['org.gnome.Nautilus', 'Files'],
+        ['libreoffice-writer', 'Writer'],
+        ['', 'Desktop'],
+    ],
+},
 };
