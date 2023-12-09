@@ -11,7 +11,7 @@ label {
 
 .workspaces button,
 .media {
-    background-color: transparent;
+    background-color: #000;
     color: #eee;
 }
 

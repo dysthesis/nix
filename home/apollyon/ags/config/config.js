@@ -15,7 +15,7 @@ const Workspaces = () => Widget.Box({
     self.children = arr.map(i => Widget.Button({
       onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`),
       child: Widget.Label(`${i}`),
-      className: Hyprland.activeWorkspace.id = i ? 'focused' : '',
+      className: Hyprland.active.workspace.id == i ? 'focused' : '',
     }));
   }]],
 }) ;
@@ -37,7 +37,7 @@ const Clock = () => Widget.Label({
 });
 
 const Notification = () => Widget.Box({
-  className = 'notification',
+  className: 'notification',
   children: [
     Widget.Icon({
       icon: 'preferences-system-notifications-symbolic',
@@ -57,7 +57,7 @@ const Media = () => Widget.Button({
   className: 'media',
   onPrimaryClick: () => Mpris.getPlayer('')?.playPause,
   onScrollUp: () => Mpris.getPlayer('')?.next(),
-  onscrollDown: () => Mpris.getlayer('')?.previous(),
+  onScrollDown: () => Mpris.getlayer('')?.previous(),
   child: Widget.Label({
     connections: [[Mpris, self => {
       const mpris = Mpris.getPlayer('');
@@ -90,7 +90,7 @@ const Volume = () => Widget.Box({
             return;
           }
       
-          const.show = [101, 67, 34, 1, 0].find(
+          const show = [101, 67, 34, 1, 0].find(
             threshold => threshold <= Audio.speaker.volume * 100
           );
       
@@ -108,6 +108,17 @@ const Volume = () => Widget.Box({
   ],
 });
 
+const SysTray = () => Widget.Box({
+  connections: [[SystemTray, self => {
+    self.children = SystemTray.items.map(item => Widget.Button({
+      child: Widget.Icon({ binds: [['icon', item, 'icon']] }),
+      onPrimaryClick: (_, event) => item.activate(event),
+      onSecondaryClick: (_, event) => item.openMenu(event),
+      binds: [['tooltip-markup', item, 'tooltip-markup']],
+    }));
+  }]],
+});
+
 const Left = () => Widget.Box({
   children: [
     Workspaces(),
@@ -115,10 +126,10 @@ const Left = () => Widget.Box({
   ],
 });
 
-const center = () => Widget.Box({
+const Center = () => Widget.Box({
   children: [
-    Workspaces(),
-    ClientTitle(),
+    Media(),
+    Notification(),
   ],
 });
 
@@ -126,7 +137,6 @@ const Right = () => Widget.Box({
   hpack: 'end',
   children: [
     Volume(),
-    BatteryLabel(),
     Clock(),
     SysTray(),
   ],
@@ -137,7 +147,7 @@ const Bar = ({ monitor } = {}) => Widget.Window({
   className: 'bar',
   monitor,
   anchor: ['bottom', 'left', 'right'],
-  exclusive: true,
+  exclusivity: 'exclusive',
   child: Widget.CenterBox({
     startWidget: Left(),
     centerWidget: Center(),
@@ -148,6 +158,7 @@ const Bar = ({ monitor } = {}) => Widget.Window({
 export default {
   style: App.configDir + '/style.css',
   window: [
-    Bar(),
+    Bar({ monitor: 0 }),
+    Bar({ monitor: 1 })
   ],
 };

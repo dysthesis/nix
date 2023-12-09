@@ -28,7 +28,7 @@ const Workspaces = () => Widget.Box({
     self.children = arr.map(i => Widget.Button({
       onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`),
       child: Widget.Label(`${i}`),
-      className: Hyprland.activeWorkspace.id = i ? 'focused' : '',
+      className: Hyprland.active.workspace.id == i ? 'focused' : '',
     }));
   }]],
 }) ;
@@ -77,7 +77,7 @@ A notification widget to replace Dunst, Mako, or SwayNC. AGS is able to act as a
 
 #+begin_src js
 const Notification = () => Widget.Box({
-  className = 'notification',
+  className: 'notification',
   children: [
     Widget.Icon({
       icon: 'preferences-system-notifications-symbolic',
@@ -107,7 +107,7 @@ const Media = () => Widget.Button({
   className: 'media',
   onPrimaryClick: () => Mpris.getPlayer('')?.playPause,
   onScrollUp: () => Mpris.getPlayer('')?.next(),
-  onscrollDown: () => Mpris.getlayer('')?.previous(),
+  onScrollDown: () => Mpris.getlayer('')?.previous(),
   child: Widget.Label({
     connections: [[Mpris, self => {
       const mpris = Mpris.getPlayer('');
@@ -162,7 +162,7 @@ Widget.Stack({
       return;
     }
 
-    const.show = [101, 67, 34, 1, 0].find(
+    const show = [101, 67, 34, 1, 0].find(
       threshold => threshold <= Audio.speaker.volume * 100
     );
 
@@ -193,6 +193,22 @@ This widget is a slider that, when modified, changes the current speaker volume.
 *** Commentary
 It's not mentioned anywhere in the documentations, but it appears that the =Audio= object is able to automatically discern whether it is PulseAudio or PipeWire that is in use as the sound server.
 
+** System tray
+A system tray to store tray items.
+
+#+begin_src js
+const SysTray = () => Widget.Box({
+  connections: [[SystemTray, self => {
+    self.children = SystemTray.items.map(item => Widget.Button({
+      child: Widget.Icon({ binds: [['icon', item, 'icon']] }),
+      onPrimaryClick: (_, event) => item.activate(event),
+      onSecondaryClick: (_, event) => item.openMenu(event),
+      binds: [['tooltip-markup', item, 'tooltip-markup']],
+    }));
+  }]],
+});
+#+end_src
+
 * Layout
 This is where the layout of the bar is configured. They are grouped to the widgets =Left=, =Center=, and =Right=.
 
@@ -208,10 +224,10 @@ const Left = () => Widget.Box({
 
 ** Center
 #+begin_src js
-const center = () => Widget.Box({
+const Center = () => Widget.Box({
   children: [
-    Workspaces(),
-    ClientTitle(),
+    Media(),
+    Notification(),
   ],
 });
 #+end_src
@@ -222,7 +238,6 @@ const Right = () => Widget.Box({
   hpack: 'end',
   children: [
     Volume(),
-    BatteryLabel(),
     Clock(),
     SysTray(),
   ],
@@ -240,7 +255,7 @@ const Bar = ({ monitor } = {}) => Widget.Window({
   className: 'bar',
   monitor,
   anchor: ['bottom', 'left', 'right'],
-  exclusive: true,
+  exclusivity: 'exclusive',
   child: Widget.CenterBox({
     startWidget: Left(),
     centerWidget: Center(),
@@ -255,7 +270,8 @@ Lastly, we export the =Bar= window so that AGS can use it.
 export default {
   style: App.configDir + '/style.css',
   window: [
-    Bar(),
+    Bar({ monitor: 0 }),
+    Bar({ monitor: 1 })
   ],
 };
 #+end_src
