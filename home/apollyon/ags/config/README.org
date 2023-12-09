@@ -81,6 +81,8 @@ We then write our =package.json=, which contains some metadata on this configura
 ** JS
 Contains the JavaScript files that are the skeleton of the AGS widgets.
 
+The configurations here are [[file:./js/README.org][literate]].
+
 *** Configurations
 This directory contains the configurations for the widgets. Modifying the files here should largely suffice to change the widgets as desired.
 
