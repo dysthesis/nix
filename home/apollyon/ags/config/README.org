@@ -1,0 +1,35 @@
+#+title: AGS configurations
+#+auto_tangle:y
+
+* The config.js
+AGS will always read off of any =config.js= file located in the configuration directory (=~/.config/ags= normally, but by the power of Home-manager, we have it in this directory).
+
+#+begin_src js :tangle config.js
+
+#+end_src
+
+* Structure
+** JS
+Contains the JavaScript files that are the skeleton of the AGS widgets.
+
+*** Configurations
+This directory contains the configurations for the widgets. Modifying the files here should largely suffice to change the widgets as desired.
+
+These configurations can be found [[file:./js/config/README.org][here]].
+
+*** Windows
+This directory contains the different windows. As of right now, the following windows are available:
+
+- [[file:./js/windows/bar/README.org][Bar]]
+- [[file:./js/windows/osd/README.org][On-screen display]]
+- [[./js/windows/dashboard/README.org][Dashboard]]
+- [[./js/windows/lockscreen/README.org][Lock screen]]
+- [[file:./js/windows/powermenu/README.org][Power menu]]
+
+*** Utilities
+Tools to make life easier.
+
+- [[file:./js/utils/org-agenda/README.org][Org-agenda parser]]
+
+** SCSS
+Contains stylesheets to make AGS look nicer.
