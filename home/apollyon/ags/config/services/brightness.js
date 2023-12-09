@@ -1,58 +1,71 @@
-import { Service, Utils } from '../imports.js';
-const { exec, execAsync } = Utils;
+import { Service, Utils } from "../imports.js";
+const { exec, readFile, writeFile, monitorFile } = Utils;
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 class BrightnessService extends Service {
-    static {
-        Service.register(
-            this,
-            { 'screen-changed': ['float'], },
-            { 'screen-value': ['float', 'rw'], },
-        );
-    }
+  static {
+    Service.register(
+      this,
+      { "screen-changed": ["float"] },
+      { "screen-value": ["float", "rw"] },
+    );
+  }
 
-    _screenValue = 0;
+  #screenValue = 0;
 
-    // the getter has to be in snake_case
-    get screen_value() { return this._screenValue; }
+  #interface = exec("sh -c 'ls -w1 /sys/class/backlight | head -1'");
+  #path = `/sys/class/backlight/${this.#interface}`;
+  #brightness = `${this.#path}/brightness`;
 
-    // the setter has to be in snake_case too
-    set screen_value(percent) {
-        percent = clamp(percent, 0, 1);
-        this._screenValue = percent;
+  #max = Number(readFile(`${this.#path}/max_brightness`));
 
-        Utils.execAsync(`brightnessctl s ${percent * 100}% -q`)
-            .then(() => {
-                // signals has to be explicity emitted
-                this.emit('screen-changed', percent);
-                this.notify('screen-value');
+  get screen_value() {
+    return this.#screenValue;
+  }
 
-                // or use Service.changed(propName: string) which does the above two
-                // this.changed('screen');
-            })
-            .catch(print);
-    }
+  set screen_value(percent) {
+    percent = clamp(percent, 0, 1);
+    this.#screenValue = percent;
 
-    constructor() {
-        super();
-        const current = Number(exec('brightnessctl g'));
-        const max = Number(exec('brightnessctl m'));
-        this._screenValue = current / max;
-    }
+    writeFile(percent * this.#max, this.#brightness)
+      .then(() => {
+        // signals has to be explicity emitted
+        this.emit("screen-changed", percent);
+        this.notify("screen-value");
 
-    // overwriting connectWidget method, let's you
-    // change the default event that widgets connect to
-    connectWidget(widget, callback, event = 'screen-changed') {
-        super.connectWidget(widget, callback, event);
-    }
+        // or use Service.changed(propName: string) which does the above two
+        // this.changed("screen");
+      })
+      .catch(print);
+  }
+
+  constructor() {
+    super();
+
+    this.#updateScreenValue();
+    monitorFile(this.#brightness, () => this.#onChange());
+  }
+
+  #updateScreenValue() {
+    this.#screenValue = Number(readFile(this.#brightness)) / this.#max;
+  }
+
+  #onChange() {
+    this.#updateScreenValue();
+
+    this.notify("screen-value");
+    this.emit("screen-changed", this.#screenValue);
+  }
+
+  connectWidget(widget, callback, event = "screen-changed") {
+    super.connectWidget(widget, callback, event);
+  }
 }
 
-// the singleton instance
 const service = new BrightnessService();
 
 // make it global for easy use with cli
 globalThis.brightness = service;
 
-// export to use in other modules
 export default service;
