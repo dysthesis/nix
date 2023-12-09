@@ -1,0 +1,279 @@
+#+title: Configuration
+#+auto_tangle:y
+#+PROPERTY: header-args :tangle config.js
+
+* Imports
+#+begin_src js
+import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
+import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
+import App from 'resource:///com/github/Aylur/ags/app.js';
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+#+end_src
+* Widgets
+Widgets can only be assigned as a child in one container. To make a reusable widget, make it a function that returns the actual widget.
+
+** Workspaces
+Indicator for Hyprland workspaces, to show which workspaces are in use and which one in particular is in focus. When a button is clicked, move to that workspace.
+
+#+begin_src js
+const Workspaces = () => Widget.Box({
+  className: 'workspaces',
+  connections: [[Hyprland.active.workspace, self => {
+    const arr = Array.from({ length: 10 }, (_, i) => i + 1);
+    self.children = arr.map(i => Widget.Button({
+      onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`),
+      child: Widget.Label(`${i}`),
+      className: Hyprland.active.workspace.id == i ? 'focused' : '',
+    }));
+  }]],
+}) ;
+#+end_src
+
+*** Commentary
+- =arr= is an array of the numbers 1 to 10, which represents the ten workspaces. If necessary, this can be tweaked to accommodate for more or less workspaces.
+- Each element of =arr= is mapped to a set of =Widget.Button=
+  - The =onClicked= property means that if button =i= is clicked, it should asynchronously run =hyprctl dispatch workspace ${i}= to move to the $i^{th}$ workspace.
+  - =className= is set such that if a workspace is one that's currently active, it has the =focused= class.
+
+** Client title
+Displays the title of the currently active window.
+
+#+begin_src js
+const ClientTitle = () => Widget.Label({
+  className: 'client-title',
+  binds: [
+    ['label', Hyprland.active.client, 'title'],
+  ],
+})
+#+end_src
+
+*** Commentary
+A simple widget that simply displays the value of =Hyprland.active.client=.
+
+** Clock
+It's a clock widget to display the current time.
+
+#+begin_src js
+const Clock = () => Widget.Label({
+  className: 'clock',
+  connections: [
+    // this is what you should do
+    [1000, self => execAsync(['date', '+%H:%M:%S %b %e.'])
+     .then(date => self.label = date).catch(console.error)],
+  ],
+});
+#+end_src
+
+*** Commentary
+It's not a significant issue to use =exec= instead of =execAsync= in this case, since this widget simply gets the current date and time and therefore will take a minuscule amount of time to execute. However, it is still better practice to use =execAsync=.
+
+** Notification
+A notification widget to replace Dunst, Mako, or SwayNC. AGS is able to act as a notification daemon.
+
+#+begin_src js
+const Notification = () => Widget.Box({
+  className: 'notification',
+  children: [
+    Widget.Icon({
+      icon: 'preferences-system-notifications-symbolic',
+      connections: [
+        [Notifications, self => self.visible = Notifications.popups.length > 0],
+      ],
+    }),
+    Widget.Label({
+      connections: [[Notifications, self => {
+        self.label = Notifications.popups[0]?.summary || '';
+      }]],
+    }),
+  ],
+});
+#+end_src
+
+*** Commentary
+This widget consists of two children: one for the icon, and one for the label.
+- The =Widget.Icon= waits on =Notifications=, only making itself visible if there are more than zero popups. =preferences-system-notifications-symbolic= is the name of the icon to display.
+- The =Widget.Label= basically contains the content of the most recent notification. If there are none, it becomes an empty string.
+
+** Media
+A widget to display and control the currently playing media.
+
+#+begin_src js
+const Media = () => Widget.Button({
+  className: 'media',
+  onPrimaryClick: () => Mpris.getPlayer('')?.playPause,
+  onScrollUp: () => Mpris.getPlayer('')?.next(),
+  onScrollDown: () => Mpris.getlayer('')?.previous(),
+  child: Widget.Label({
+    connections: [[Mpris, self => {
+      const mpris = Mpris.getPlayer('');
+      if (mpris) {
+        self.label = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
+      } else {
+        self.label = 'Nothing is playing';
+      }
+    }]],
+  }),
+});
+#+end_src
+
+*** Commentary
+This widget is a button that displays the artists and the title of the song currently playing if any. It has three behaviours:
+
+- If it is clicked, it toggles the play/pause state.
+- If it is scrolled up, it skips to the next song.
+- If it is scrolled down, it returns to the previous song.
+
+** Volume
+A widget to display and control the current volume.
+
+#+begin_src js :noweb yes
+const Volume = () => Widget.Box({
+  className: 'volume',
+  css: 'min-width: 180px',
+  children: [
+      <<volume-icon>>
+      <<volume-slider>>
+  ],
+});
+#+end_src
+
+*** Children
+**** Volume icon
+#+name: volume-icon
+#+begin_src js :tangle no :noweb yes
+Widget.Stack({
+  items: [
+    ['101', Widget.Icon('audio-volume-overamplified-symbolic')],
+    ['67', Widget.Icon('audio-volume-high-symbolic')],
+    ['34', Widget.Icon('audio-volume-medium-symbolic')],
+    ['1', Widget.Icon('audio-volume-low-symbolic')],
+    ['0', Widget.Icon('audio-volume-muted-symbolic')],
+  ],
+  connections: [[Audio, self => {
+    if (!Audio.speaker)
+      return;
+    if (Audio.speaker.isMuted) {
+      self.shown = '0';
+      return;
+    }
+
+    const show = [101, 67, 34, 1, 0].find(
+      threshold => threshold <= Audio.speaker.volume * 100
+    );
+
+    self.shown = `${show}`;
+  }, 'speaker-changed']],
+}),
+#+end_src
+
+This widget displays an icon based on the current speaker volume, based on the arbitrary thresholds 101, 67, 34, 1, 0.
+
+**** Volume slider
+#+name: volume-slider
+#+begin_src js :tangle no :noweb yes
+Widget.Slider({
+  hexpand: true,
+  drawValue: false,
+  onChange: ({ value }) => Audio.speaker.volume = value,
+  connections: [[Audio, self => {
+    self.value = Audio.speaker?.volume || 0;
+  }, 'speaker-changed']],
+}),
+#+end_src
+
+This widget is a slider that, when modified, changes the current speaker volume.
+
+- =hexpand: true= means that this widget is able to expand horizontally
+
+*** Commentary
+It's not mentioned anywhere in the documentations, but it appears that the =Audio= object is able to automatically discern whether it is PulseAudio or PipeWire that is in use as the sound server.
+
+** System tray
+A system tray to store tray items.
+
+#+begin_src js
+const SysTray = () => Widget.Box({
+  connections: [[SystemTray, self => {
+    self.children = SystemTray.items.map(item => Widget.Button({
+      child: Widget.Icon({ binds: [['icon', item, 'icon']] }),
+      onPrimaryClick: (_, event) => item.activate(event),
+      onSecondaryClick: (_, event) => item.openMenu(event),
+      binds: [['tooltip-markup', item, 'tooltip-markup']],
+    }));
+  }]],
+});
+#+end_src
+
+* Layout
+This is where the layout of the bar is configured. They are grouped to the widgets =Left=, =Center=, and =Right=.
+
+** Left
+#+begin_src js
+const Left = () => Widget.Box({
+  children: [
+    Workspaces(),
+    ClientTitle(),
+  ],
+});
+#+end_src
+
+** Center
+#+begin_src js
+const Center = () => Widget.Box({
+  children: [
+    Media(),
+    Notification(),
+  ],
+});
+#+end_src
+
+** Right
+#+begin_src js
+const Right = () => Widget.Box({
+  hpack: 'end',
+  children: [
+    Volume(),
+    Clock(),
+    SysTray(),
+  ],
+});
+#+end_src
+
+=hpack= means horizontal packing, and therefore =hpack: 'end'= aligns the child widgets towards the right end of the horizontal space of the container.
+
+* The bar
+The bar itself will be a function that takes in the monitor number and returns a =Widget.Window= for that monitor, containing the layout widgets previously defined.
+
+#+begin_src js
+const Bar = ({ monitor } = {}) => Widget.Window({
+  name: `bar-${monitor}`,
+  className: 'bar',
+  monitor,
+  anchor: ['bottom', 'left', 'right'],
+  exclusivity: 'exclusive',
+  child: Widget.CenterBox({
+    startWidget: Left(),
+    centerWidget: Center(),
+    endWidget: Right(),
+  }),
+})
+#+end_src
+
+Lastly, we export the =Bar= window so that AGS can use it.
+
+#+begin_src js
+export default {
+  style: App.configDir + '/style.css',
+  window: [
+    Bar({ monitor: 0 }),
+    Bar({ monitor: 1 })
+  ],
+};
+#+end_src
+
+=style.css= is [[file:./styling.org][stylesheet]] that will customise the appearance of this bar.
