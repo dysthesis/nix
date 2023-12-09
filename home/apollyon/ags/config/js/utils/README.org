@@ -1,0 +1,6 @@
+#+title: Utilities
+
+The documents in this directory contains functions which serves to assist and abstract details in other sections of this configuration. Currently, this consists of the following utilities:
+
+- [[file:./misc][Miscellaneous utilities]]: mostly sourced from [[https://github.com/Aylur/dotfiles/blob/main/ags/js/utils.js][Aylur's own dotfiles]], these are utility functions that are too small to justify having separate files for.
+- [[file:./org-agenda][Org-agenda parser]]: used to parse org-agenda tasks, currently a work in progress. This is heavily inspired by [[https://github.com/nehrbash/dotfiles/blob/main/.config/eww/scripts/tasks][nehrbash's dotfiles]], who created widgets in EWW for their Org-agenda.
