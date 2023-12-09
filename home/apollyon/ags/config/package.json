@@ -1,0 +1,16 @@
+{
+  "name": "ags-configuration",
+  "version": "1.5.5",
+  "description": "My configuration files for AGS",
+  "main": "config.js",
+  "scripts": {
+    "lint": "eslint . --fix",
+    "stylelint": "stylelint ./scss --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://codeberg.org/dysthesis/nix.git"
+  },
+  "author": "Dysthesis",
+  "homepage": "https://codeberg.org/dysthesis/nix",
+}
