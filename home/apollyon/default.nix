@@ -10,6 +10,7 @@
     # ./foot
     ./anyrun
     ./theme
+    ./services
     ./emacs
     ./git
     ./ags
