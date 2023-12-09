@@ -1,0 +1,8 @@
+#+title: Configurations for AGS
+
+* Options
+#+PROPERTY: header-args :tangle options.js
+#+auto_tangle:y
+
+* Themes
+This could be something to add in the future, but I'm not one to switch themes much and prefer to stick to one, so for now, this will be here as a placeholder.
