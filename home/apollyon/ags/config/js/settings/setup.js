@@ -21,10 +21,6 @@ export function init() {
     dependandOptions();
 
     reloadScss();
-    hyprlandInit();
-    setupHyprland();
-    wallpaper();
-    showAbout();
 }
 
 function dependandOptions() {
