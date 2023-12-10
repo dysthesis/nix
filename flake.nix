@@ -4,9 +4,7 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
 
-    nur = {
-      url = "github:nix-community/NUR";
-    };
+    nur = { url = "github:nix-community/NUR"; };
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -15,17 +13,11 @@
 
     ags.url = "github:Aylur/ags";
     anyrun.url = "github:Kirottu/anyrun";
-    anyrun-nixos-options = {
-      url = "github:n3oney/anyrun-nixos-options";
-    };
+    anyrun-nixos-options = { url = "github:n3oney/anyrun-nixos-options"; };
     # easy color integration
-    nix-colors = {
-      url = "github:misterio77/nix-colors";
-    };
+    nix-colors = { url = "github:misterio77/nix-colors"; };
 
-    impermanence = {
-      url = "github:nix-community/impermanence";
-    };
+    impermanence = { url = "github:nix-community/impermanence"; };
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -56,18 +48,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Neovim stuff
-    moonfly = {
-      url = "github:bluz71/vim-moonfly-colors";
-      flake = false;
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvfetcher.url = "github:berberman/nvfetcher";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    ...
-  }: {
+  outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations = import ./hosts inputs;
   };
 }
