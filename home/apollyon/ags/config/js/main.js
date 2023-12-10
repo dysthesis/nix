@@ -11,6 +11,8 @@ import { init } from './settings/setup.js';
 import { forMonitors } from './utils.js';
 import options from './options.js';
 
+init();
+
 const windows = () => [
     forMonitors(Notifications),
     forMonitors(OSD),
