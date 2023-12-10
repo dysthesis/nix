@@ -1,30 +1,11 @@
-#+title: Configurations for AGS
-#+auto_tangle:y
-
-* Options
-:PROPERTIES:
-:header-args:js: :tangle options.js
-:END:
-
-** Imports
-#+begin_src js
 import { USER } from 'resource:///com/github/Aylur/ags/utils.js';
-#+end_src
 
-** Functions
-*** Reset options
-Wipe all AGS cache and reset options.
-
-#+begin_src js
 function resetOptions() {
     exec(`rm -rf ${CACHE_FILE}`);
     cacheObj = {};
     getOptions().forEach(opt => opt.reset());
 }
-#+end_src
 
-*** Get values
-#+begin_src js
 function getValues() {
   const obj = {};
   for (const opt of getOptions()) {
@@ -34,10 +15,7 @@ function getValues() {
 
   return JSON.stringify(obj, null, 2);
 }
-#+end_src
 
-*** Apply
-#+begin_src js
 /** @param {string | object} config */
 export function apply(config) {
     const options = getOptions();
@@ -54,10 +32,7 @@ export function apply(config) {
         opt.setValue(settings[id]);
     }
 }
-#+end_src
 
-*** Get options
-#+begin_src js
 /** @returns {Array<Opt<any>>} */
 function getOptions(object = options, path = '') {
     return Object.keys(object).flatMap(key => {
@@ -76,22 +51,10 @@ function getOptions(object = options, path = '') {
         return [];
     });
 }
-#+end_src
 
-** Export
-#+begin_src js
 export default {
   reset: resetOptions,
   values: getValues,
   apply: apply,
   list: getOptions,
 }
-#+end_src
-
-* Variables
-:PROPERTIES:
-:header-args:js: :tangle variables.js
-:END:
-
-* Themes
-This could be something to add in the future, but I'm not one to switch themes much and prefer to stick to one, so for now, this will be here as a placeholder.
