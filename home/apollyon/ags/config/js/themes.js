@@ -29,7 +29,7 @@ Theme({
   "color.orange": "#fabe2c",
 
   "theme.scheme": "dark",
-  "theme.bg": "#161616",
+  "theme.bg": "#000000",
   "theme.fg": "#ffffff",
   "theme.accent.accent": "#9aedfe",
   "theme.accent.fg": "$bg-color",

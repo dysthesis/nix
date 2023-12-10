@@ -85,7 +85,6 @@ const End = () => Widget.Box({
             items: submenuItems,
             children: [
                 SysTray(),
-                ColorPicker(),
             ],
         }),
 
@@ -99,7 +98,6 @@ const End = () => Widget.Box({
         }),
 
         SeparatorDot(),
-        ScreenRecord(),
         SeparatorDot(Recorder, r => r.recording),
         BatteryBar(Battery, b => b.available),
         SeparatorDot(Battery, b => b.available),
