@@ -22,6 +22,7 @@
     inputs.anyrun.homeManagerModules.default
     inputs.ags.homeManagerModules.default
     inputs.nix-colors.homeManagerModules.default
+    inputs.nixvim.homeManagerModules.nixvim
   ];
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {

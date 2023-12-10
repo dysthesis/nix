@@ -53,7 +53,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nvfetcher.url = "github:berberman/nvfetcher";
+    nvfetcher = {
+      url = "github:berberman/nvfetcher";
+      inputs = { nixpkgs.follows = "nixpkgs"; };
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {

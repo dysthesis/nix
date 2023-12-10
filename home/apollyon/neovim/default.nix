@@ -1,10 +1,9 @@
-{ pkgs, ... }:
-with pkgs;
-let
-  sources = callPackage ../_sources/generated.nix { };
+{pkgs, ...}:
+with pkgs; let
+  sources = callPackage ../_sources/generated.nix {};
 
   mkVimPlugin = sources:
-    vimUtils.buildVimPlugin { inherit (sources) src pname version; };
+    vimUtils.buildVimPlugin {inherit (sources) src pname version;};
 
   alternate-toggler-nvim = mkVimPlugin sources.alternate-toggler-nvim;
   buffer-manager-nvim = mkVimPlugin sources.buffer-manager-nvim;
@@ -16,8 +15,7 @@ in {
   programs.nixvim = {
     enable = true;
 
-    colorscheme.kanagawa.enable = true;
-    plugins.lightline.enable = true;
+    colorschemes.oxocarbon.enable = true;
     options = {
       number = true;
       cursorline = true;
@@ -39,6 +37,30 @@ in {
       conceallevel = 2;
     };
 
+    keymaps = [
+      {
+        key = "/";
+        action = ":SearchBoxIncSearch<CR>";
+        mode = "n";
+      }
+      {
+        key = "<Leader>ff";
+        action = "<CMD>Telescope find_files<CR>";
+        mode = "n";
+      }
+      {
+        key = "<Leader>fw";
+        action = "<CMD>Telescope live_grep<CR>";
+        mode = "n";
+      }
+      {
+        key = "<Leader>lg";
+        action = "<CMD>LazyGit<CR>";
+        mode = "n";
+        options.silent = true;
+      }
+    ];
+
     globals = {
       conceallevel = 2;
       concealcursor = "nciv";
@@ -55,6 +77,7 @@ in {
       barbecue.enable = false;
       cmp-cmdline.enable = true;
       comment-nvim.enable = true;
+      nvim-autopairs.enable = true;
       diffview.enable = true;
       emmet.enable = true;
       fidget.enable = true;
@@ -71,10 +94,6 @@ in {
       rust-tools.enable = true;
       spider.enable = true;
       todo-comments.enable = true;
-      # trouble.enable = true;
-      # trouble.height = 15;
-      # trouble.autoOpen = true;
-      # trouble.autoClose = true;
       typst-vim.enable = true;
 
       bufferline = {
@@ -101,12 +120,12 @@ in {
         };
 
         formattersByFt = {
-          haskell = [ "fourmolu" ];
-          lua = [ "stylua" ];
-          nix = [ "alejandra" ];
-          rust = [ "rustfmt" ];
-          vue = [ "eslint_d" ];
-          typescript = [ "eslint_d" ];
+          haskell = ["fourmolu"];
+          lua = ["stylua"];
+          nix = ["alejandra"];
+          rust = ["rustfmt"];
+          vue = ["eslint_d"];
+          typescript = ["eslint_d"];
         };
 
         extraOptions.format_on_save = {
@@ -231,12 +250,12 @@ in {
         modules = {
           indentscope = {
             symbol = "│";
-            draw = { delay = 50; };
+            draw = {delay = 50;};
           };
-          move = { };
-          starter = { };
-          surround = { };
-          trailspace = { };
+          move = {};
+          starter = {};
+          surround = {};
+          trailspace = {};
         };
       };
 
@@ -252,16 +271,16 @@ in {
         experimental.ghost_text.hlgroup = "Comment";
 
         sources = [
-          { name = "nvim_lsp"; }
-          { name = "luasnip"; }
-          { name = "path"; }
-          { name = "buffer"; }
+          {name = "nvim_lsp";}
+          {name = "luasnip";}
+          {name = "path";}
+          {name = "buffer";}
         ];
 
         window.completion.border = "rounded";
 
-        mapping = { "<CR>" = "cmp.mapping.confirm()"; };
-        mappingPresets = [ "insert" ];
+        mapping = {"<CR>" = "cmp.mapping.confirm()";};
+        mappingPresets = ["insert"];
 
         formatting.format = lib.mkForce ''
           require('lspkind').cmp_format({
