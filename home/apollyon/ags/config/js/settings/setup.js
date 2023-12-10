@@ -13,7 +13,7 @@ import { exec, execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
 
 
 export function init() {
-    initWallpaper();
+    // initWallpaper();
     notificationBlacklist();
     warnOnLowBattery();
     globals();
@@ -24,7 +24,7 @@ export function init() {
 
     App.connect('config-parsed', () => {
         reloadScss();
-        hyprlandInit();
+        // hyprlandInit();
         wallpaper();
         pywal();
         gtkTheme();
