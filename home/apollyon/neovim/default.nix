@@ -40,6 +40,7 @@ in {
         base0F = "#${base0F}";
       };
     };
+
     options = {
       number = true;
       cursorline = true;
@@ -119,6 +120,14 @@ in {
       spider.enable = true;
       todo-comments.enable = true;
       typst-vim.enable = true;
+
+      lualine = {
+        enable = true;
+        extensions = [
+          "fzf"
+        ];
+        globalstatus = true;
+      };
 
       bufferline = {
         enable = true;
