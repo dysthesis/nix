@@ -84,6 +84,18 @@ in {
         mode = "n";
         options.silent = true;
       }
+      {
+        key = "<Leader>e";
+        action = "<CMD>NvimTreeToggle<CR>";
+        mode = "n";
+        options.silent = true;
+      }
+      {
+        key = "<Leader>a";
+        action = "<CMD>lua require('alternate-toggler').toggleAlternate()<CR>";
+        mode = "n";
+        options.silent = true;
+      }
     ];
 
     globals = {
@@ -335,8 +347,8 @@ in {
 
       nvim-jdtls = {
         enable = true;
-        data = "/Users/marshall/.cache/jdt-language-server/workspace";
-        configuration = "/Users/marshall/.cache/jdt-language-server/config";
+        data = "~/.cache/jdt-language-server/workspace";
+        configuration = "~/.cache/jdt-language-server/config";
       };
 
       nvim-tree = {
