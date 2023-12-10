@@ -16,6 +16,7 @@ import Recorder from '../services/screenrecord.js';
 import options from '../options.js';
 import * as vars from '../variables.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import FocusedClient from './buttons/FocusedClient.js';
 
 const submenuItems = Variable(1);
 SystemTray.connect('changed', () => {
@@ -51,6 +52,8 @@ const Start = () => Widget.Box({
     OverviewButton(),
     SeparatorDot(),
     Workspaces(),
+    SeparatorDot(),
+    FocusedClient(),
     Widget.Box({ hexpand: true }),
   ],
 });
