@@ -345,5 +345,10 @@ in {
       telescope-ui-select-nvim # Sets ui-select to use telescope
       vim-smoothie # Smooth scrolling
     ];
+
+    extraConfigVim = ''
+      highlight Normal guibg=none
+      highlight NonText guibg=none
+    '';
   };
 }
