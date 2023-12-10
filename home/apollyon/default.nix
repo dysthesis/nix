@@ -8,6 +8,7 @@
     ./starship
     # ./firefox
     # ./foot
+    ./neovim
     ./anyrun
     ./theme
     ./services

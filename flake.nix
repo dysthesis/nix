@@ -55,6 +55,12 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Neovim stuff
+    moonfly = {
+      url = "github:bluz71/vim-moonfly-colors";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {
