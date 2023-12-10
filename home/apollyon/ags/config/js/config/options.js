@@ -1,60 +1,60 @@
-import { USER } from 'resource:///com/github/Aylur/ags/utils.js';
-
-function resetOptions() {
-    exec(`rm -rf ${CACHE_FILE}`);
-    cacheObj = {};
-    getOptions().forEach(opt => opt.reset());
-}
-
-function getValues() {
-  const obj = {};
-  for (const opt of getOptions()) {
-    if (opt.category !== 'exclude')
-      obj[opt.id] = opt.value;
-  }
-
-  return JSON.stringify(obj, null, 2);
-}
-
-/** @param {string | object} config */
-export function apply(config) {
-    const options = getOptions();
-    const settings = typeof config === 'string'
-        ? JSON.parse(config) : config;
-
-    for (const id of Object.keys(settings)) {
-        const opt = options.find(opt => opt.id === id);
-        if (!opt) {
-            print(`No option with id: "${id}"`);
-            continue;
-        }
-
-        opt.setValue(settings[id]);
-    }
-}
-
-/** @returns {Array<Opt<any>>} */
-function getOptions(object = options, path = '') {
-    return Object.keys(object).flatMap(key => {
-        /** @type Option<any> */
-        const obj = object[key];
-        const id = path ? path + '.' + key : key;
-
-        if (obj instanceof Opt) {
-            obj.id = id;
-            return obj;
-        }
-
-        if (typeof obj === 'object')
-            return getOptions(obj, id);
-
-        return [];
-    });
-}
-
 export default {
-  reset: resetOptions,
-  values: getValues,
-  apply: apply,
-  list: getOptions,
+    workspaces: 10,
+    bar: {
+      position: 'bottom',
+      icon: '',
+      separators: true,
+    },
+    gtk: {
+      theme: "Graphite-Dark",
+      icon-theme: "Tela-black-dark",
+    },
+    font: {
+      font: "JetBrainsMono Nerd Font",
+      mono: "JetBrainsMono Nerd Font",
+      size: 14pt,
+    },
+    colour: {
+      red: "#ff5555",
+      green: "#5af78e",
+      yellow: "#f3f99d",
+      blue: "#57c7ff",
+      magenta: "#ff6ac1",
+      teal: "#9aedfe",
+      orange: "#fabe2c",
+      foreground: "#ffffff",
+      background: "#000000",
+      accent: "#9aedfe",
+    },
+    substitutions: {
+        icons: [
+          ['transmission-gtk', 'transmission'],
+          ['blueberry.py', 'bluetooth'],
+          ['Caprine', 'facebook-messenger'],
+          ['', 'preferences-desktop-display'],
+        ],
+        titles: [
+          ['com.github.Aylur.ags', 'AGS'],
+          ['transmission-gtk', 'Transmission'],
+          ['com.obsproject.Studio', 'OBS'],
+          ['com.usebottles.bottles', 'Bottles'],
+          ['com.github.wwmm.easyeffects', 'Easy Effects'],
+          ['org.gnome.TextEditor', 'Text Editor'],
+          ['org.gnome.design.IconLibrary', 'Icon Library'],
+          ['blueberry.py', 'Blueberry'],
+          ['org.wezfurlong.wezterm', 'Wezterm'],
+          ['com.raggesilver.BlackBox', 'BlackBox'],
+          ['firefox', 'Firefox'],
+          ['org.gnome.Nautilus', 'Files'],
+          ['libreoffice-writer', 'Writer'],
+          ['', 'Desktop'],
+        ],
+    },
+    notifications: {
+      black_list: [
+        'Spotify'
+      ],
+      position: 'bottom',
+      width: 450,
+    },
 }

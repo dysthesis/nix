@@ -1,23 +1,10 @@
-#+title: Dashboard
-#+PROPERTY: header-args :tangle main.js
-#+auto_tangle:y
-
-* Imports
-#+begin_src js
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import PopupWindow from '../../utils/popup-window/main.js';
 import options from '../../config/options.js';
-#+end_src
 
-** Modules
-The modules are defined [[file:./modules/README.org][here]].
-#+begin_src js
 import DateColumn from './modules/DateColumn.js';
 import NotificationColumn from './modules/NotificationColumn.js';
-#+end_src
 
-* Window
-#+begin_src js
 export default () => PopupWindow({
     name: 'dashboard',
     connections: [[options.bar.position, self => {
@@ -33,4 +20,3 @@ export default () => PopupWindow({
         ],
     }),
 });
-#+end_src

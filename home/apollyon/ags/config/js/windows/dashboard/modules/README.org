@@ -1,0 +1,156 @@
+#+title: Dashboard modules
+#+PROPERTY: header-args :noweb yes
+#+auto_tangle:y
+
+* Date column
+:PROPERTIES:
+:header-args:js: :tangle DateColumn.js
+:END:
+
+** Imports
+#+begin_src js
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Clock from '../../../utils/clock/main.js';
+import * as vars from '../../../config/variables.js';
+#+end_src
+
+** Widget
+#+begin_src js
+export default () => Widget.Box({
+  vertical: true;
+  class_name: 'datemenu vertical',
+  children: [
+      <<clock>>
+      <<calendar>>
+  ],
+});
+#+end_src
+
+*** Clock
+#+name:clock
+#+begin_src js :tangle no
+Widget.Box({
+  class_name: 'clock-box',
+  vertical: true,
+  children: [
+    Clock({ format: '%H:%M' }),
+    Widget.Label({
+      class_name: 'uptime',
+      binds: [['label', vars.uptime, 'value', t => `uptime: ${t}`]],
+    }),
+  ],
+}),
+#+end_src
+
+*** Calendar
+#+name: calendar
+#+begin_src js :tangle no
+Widget.Box({
+  class_name: 'calendar',
+  children: [
+    Widget.Calendar({
+      hexpand: true,
+      hpack: 'center',
+    }),
+  ],
+}),
+#+end_src
+
+* Notifications column
+:PROPERTIES:
+:header-args:js:  :tangle NotificationColumn.js
+:END:
+
+** Imports
+#+begin_src js
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import Notifications from 'resource:///com/github/Aylur/ags/service/notifications.js';
+import icons from '../../../config/icons.js';
+import Notification from '../../../utils/notifications/main.js';
+#+end_src
+
+** Clear button
+Button to clear all notifications.
+
+#+begin_src js
+const ClearButton = () => Widget.Button({
+  on_clicked: () => Notifications.clear(),
+  binds: [['sensitive', Notifications, 'notifications', n => n.length > 0]],
+  child: Widget.Box({
+    children: [
+      Widget.Label('Clear '),
+      Widget.Icon({
+        binds: [['icon', Notifications, 'notifications', n =>
+          n.length > 0 ? icons.trash.full : icons.trash.empty]],
+      }),
+    ],
+  }),
+});
+#+end_src
+
+** Header
+#+begin_src js
+const Header = () => Widget.Box({
+  class_name: 'header',
+  children: [
+    Widget.Label({ label: 'Notifications', hexpand: true, xalign: 0 }),
+    ClearButton(),
+  ],
+});
+#+end_src
+
+** Notifications list
+#+begin_src js
+const NotificationList = () => Widget.Box({
+  vertical: true,
+  vexpand: true,
+  connections: [[Notifications, box => {
+    box.children = Notifications.notifications
+                                .reverse().map(Notification);
+
+    box.visible = Notifications.notifications.length > 0;
+  }]],
+});
+#+end_src
+
+** Placeholder
+What to show if there are no notifications.
+
+#+begin_src js
+const Placeholder = () => Widget.Box({
+  class_name: 'placeholder',
+  vertical: true,
+  vpack: 'center',
+  hpack: 'center',
+  vexpand: true,
+  hexpand: true,
+  children: [
+    Widget.Icon(icons.notifications.silent),
+    Widget.Label('Your inbox is empty'),
+  ],
+  binds: [['visible', Notifications, 'notifications', n => n.length === 0]],
+});
+#+end_src
+
+** Export
+#+begin_src js
+export default () => Widget.Box({
+    class_name: 'notifications',
+    vertical: true,
+    children: [
+        Header(),
+        Widget.Scrollable({
+            vexpand: true,
+            class_name: 'notification-scrollable',
+            child: Widget.Box({
+                class_name: 'notification-list',
+                vertical: true,
+                children: [
+                    NotificationList(),
+                    Placeholder(),
+                ],
+            }),
+        }),
+    ],
+});
+#+end_src

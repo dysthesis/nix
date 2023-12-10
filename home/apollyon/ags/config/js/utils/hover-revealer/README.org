@@ -1,0 +1,105 @@
+#+title: Hover revealer
+#+PROPERTY: header-args :noweb yes
+#+auto_tangle:y
+
+This creates a UI element where certain sections are hidden until the cursor is hovered over it, at which point it would expand to show the hidden sections.
+
+* Imports
+#+begin_src js :tangle main.js
+import Widget from 'resource:///com/github/Aylur/ags/widget.js';
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+#+end_src
+
+* Revealer
+#+name:revealer
+#+begin_src js
+const revealer = Widget.Revealer({
+  transition: `slide_${direction}`,
+  connections,
+  binds,
+  transition_duration: duration,
+  child,
+});
+#+end_src
+
+* Event box
+#+name:eventbox
+#+begin_src js
+const eventbox = Widget.EventBox({
+  ...rest,
+  connections: eventboxConnections,
+    <<eventbox-on-hover>>
+    <<eventbox-on-hover-lost>>
+    child: Widget.Box({
+    vertical,
+    children: [
+      posStart && indicator,
+      revealer,
+      posEnd && indicator,
+    ],
+  }),
+});
+#+end_src
+
+** When hovered
+#+name:eventbox-on-hover
+#+begin_src js
+on_hover: () => {
+    if (open)
+      return;
+
+    revealer.reveal_child = true;
+    Utils.timeout(duration, () => open = true);
+  },
+#+end_src
+
+** When no longer hovered
+#+name:eventbox-on-hover-lost
+#+begin_src js
+on_hover_lost: () => {
+    if (!open)
+      return;
+
+    revealer.reveal_child = false;
+    open = false;
+  },
+#+end_src
+
+* Export
+#+begin_src js :tangle main.js
+/**
+ ,* @typedef {import('types/widgets/eventbox').EventBoxProps & {
+ ,*    indicator?: import('types/widgets/box').BoxProps['child']
+ ,*    direction?: 'left' | 'right' | 'down' | 'up'
+ ,*    duration?: number
+ ,*    eventboxConnections?: import('types/widgets/box').BoxProps['connections']
+ ,*    connections?: import('types/widgets/revealer').RevealerProps['connections']
+ ,* }} HoverRevealProps
+ ,*/
+
+/**
+ ,* @param {HoverRevealProps} props
+ ,*/
+export default ({
+  indicator,
+  child,
+  direction = 'left',
+  duration = 300,
+  connections = [],
+  eventboxConnections = [],
+  binds = [],
+  ...rest
+}) => {
+  let open = false;
+  const vertical = direction === 'down' || direction === 'up';
+  const posStart = direction === 'down' || direction === 'right';
+  const posEnd = direction === 'up' || direction === 'left';
+
+  <<revealer>>
+  <<eventbox>>
+
+  return Widget.Box({
+      children: [eventbox],
+  });
+};
+#+end_src

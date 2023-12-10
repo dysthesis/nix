@@ -1,32 +1,12 @@
-#+title: Bar
-#+PROPERTY: header-args :noweb yes :tangle main.js
-#+auto_tangle:y
-
-* Imports
-** AGS Services
-#+begin_src js
 import SystemTray from 'resource:///com/github/Aylur/ags/service/systemtray.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import Variable from 'resource:///com/github/Aylur/ags/variable.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
-#+end_src
 
-
-** Options
-First, we need to import the =options= object where we defined options such as colours, fonts, etc.
-#+begin_src js
 import options from '../../config/options.js';
-#+end_src
 
-** Variables
-#+begin_src js
 import * as vars from '../../config/variables.js';
-#+end_src
 
-** Modules
-These modules are defined [[file:./modules][here]].
-
-#+begin_src js
 import OverviewButton from './modules/OverviewButton.js';
 import Workspaces from './modules/Workspaces.js';
 import DateButton from './modules/DateButton.js';
@@ -37,18 +17,12 @@ import PowerMenu from './modules/PowerMenu.js';
 import ScreenRecord from './modules/ScreenRecord.js';
 import BatteryBar from './modules/BatteryBar.js';
 import SubMenu from './modules/SubMenu.js';
-#+end_src
 
-* System tray
-#+begin_src js
 const submenuItems = Variable(1);
 SystemTray.connect('changed', () => {
     submenuItems.setValue(SystemTray.items.length + 1);
 });
-#+end_src
 
-* Separator dot
-#+begin_src js
 /**
  * @template T
  * @param {T=} service
@@ -71,10 +45,7 @@ const SeparatorDot = (service, condition) => {
         vpack: 'center',
     });
 };
-#+end_src
 
-* System status
-#+begin_src js
 const SysProgress = (type, title, unit) => Widget.Box({
     class_name: `circular-progress-box ${type}`,
     hexpand: false,
@@ -88,13 +59,7 @@ const SysProgress = (type, title, unit) => Widget.Box({
         start_at: 0.75,
     }),
 });
-#+end_src
 
-* Sections
-** Start
-Leftmost section of the bar
-
-#+begin_src js
 const Start = () => Widget.Box({
     class_name: 'start',
     children: [
@@ -104,72 +69,41 @@ const Start = () => Widget.Box({
         Widget.Box({ hexpand: true }),
     ],
 });
-#+end_src
 
-** Centre
-#+begin_src js
 const Centre = () => Widget.Box({
     class_name: 'center',
     children: [
         DateButton(),
     ],
 });
-#+end_src
 
-** End
-The rightmost section of the bar consists of three sub-sections: the system tray, system status, and system indicators.
-
-#+begin_src js
 const End = () => Widget.Box({
   class_name: 'end',
   children: [
-      <<systray>>
-      <<status>>
-      <<indicators>>
+      Widget.Box({ hexpand: true }),
+      
+      SubMenu({
+        items: submenuItems,
+        children: [
+          SysTray(),
+          ColorPicker(),
+        ],
+      }),
+      Widget.Box({
+        class_name: 'system-info horizontal',
+        children: [
+          SysProgress('cpu', 'Cpu', '%'),
+          SysProgress('ram', 'Ram', '%'),
+          SysProgress('temp', 'Temperature', '°'),
+        ],
+      }),
+      SeparatorDot(),
+      SystemIndicators(),
+      SeparatorDot(),
+      PowerMenu(),
   ],
 });
-#+end_src
 
-*** System tray
-#+name:systray
-#+begin_src js :tangle no
-Widget.Box({ hexpand: true }),
-
-SubMenu({
-  items: submenuItems,
-  children: [
-    SysTray(),
-    ColorPicker(),
-  ],
-}),
-#+end_src
-
-*** System status
-#+name:status
-#+begin_src js :tangle no
-Widget.Box({
-  class_name: 'system-info horizontal',
-  children: [
-    SysProgress('cpu', 'Cpu', '%'),
-    SysProgress('ram', 'Ram', '%'),
-    SysProgress('temp', 'Temperature', '°'),
-  ],
-}),
-#+end_src
-
-*** System indicators
-#+name:indicators
-#+begin_src js :tangle no
-SeparatorDot(),
-SystemIndicators(),
-SeparatorDot(),
-PowerMenu(),
-#+end_src
-
-* Export
-A function to create a bar for the given monitor.
-
-#+begin_src js
 /** @param {number} monitor */
 export default monitor => Widget.Window({
     name: `bar${monitor}`,
@@ -186,4 +120,3 @@ export default monitor => Widget.Window({
         end_widget: End(),
     }),
 });
-#+end_src

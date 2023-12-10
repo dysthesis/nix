@@ -1,0 +1,62 @@
+#+title: On-screen indicators
+#+PROPERTY: header-args :tangle main.js :noweb yes
+#+auto_tangle:y
+
+* Imports
+#+begin_src js
+import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
+import Service from 'resource:///com/github/Aylur/ags/service.js';
+import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
+import icons from '../../config/icons.js';
+import { getAudioTypeIcon } from '../../utils/misc/main.js';
+#+end_src
+
+* Indicator class
+#+begin_src js
+class Indicator extends Service {
+  static {
+    Service.register(this, {
+      'popup': ['double', 'string'],
+    });
+  }
+
+  #delay = 1500;
+  #count = 0;
+  <<popup>>
+  <<speaker>>
+  connect(event = 'popup', callback) {
+    return super.connect(event, callback);
+  }
+}
+#+end_src
+
+** Popup
+#+name:popup
+#+begin_src js :tangle no
+/**
+ ,* @param {number} value - 0 < v < 1
+ ,* @param {string} icon
+ ,*/
+popup(value, icon) {
+  this.emit('popup', value, icon);
+  this.#count++;
+  Utils.timeout(this.#delay, () => {
+    this.#count--;
+
+    if (this.#count === 0)
+      this.emit('popup', -1, icon);
+  });
+}
+#+end_src
+
+** Speaker
+#+name:speaker
+#+begin_src js :tangle no
+speaker() {
+  this.popup(
+    Audio.speaker?.volume || 0,
+    getAudioTypeIcon(Audio.speaker?.icon_name || ''),
+  );
+}
+#+end_src
+
