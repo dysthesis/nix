@@ -5,7 +5,7 @@
 }: {
   wayland.windowManager.hyprland = {
     enable = true;
-    xwayland = { enable = true; };
+    xwayland = {enable = true;};
     systemd.enable = true;
     package = inputs.hyprland.packages.${pkgs.system}.default;
   };
@@ -16,6 +16,7 @@
   ];
 
   home.packages = with pkgs; [
+    pyprland
     swww
     udiskie
     libnotify

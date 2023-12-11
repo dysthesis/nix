@@ -1,5 +1,5 @@
-_:
-let wallpaper = ./wallpaper.jpg;
+_: let
+  wallpaper = ./wallpaper.jpg;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -12,6 +12,7 @@ in {
         "ags"
         "udiskie"
         "dictionary"
+        "pypr"
         # "foot -s"
         "swww init"
         "swww img ${wallpaper}"
@@ -84,7 +85,7 @@ in {
         no_gaps_when_only = false;
       };
 
-      master = { new_is_master = false; };
+      master = {new_is_master = false;};
 
       gestures = {
         workspace_swipe = true;
@@ -152,7 +153,7 @@ in {
         "$MOD, mouse_up, workspace, e-1"
       ];
 
-      bindm = [ "$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow" ];
+      bindm = ["$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow"];
       # binds that will be repeated, a.k.a can be held to toggle multiple times
       binde = [
         # volume controls
@@ -212,4 +213,18 @@ in {
        bind = SUPER, c, exec, hyprctl dispatch centerwindow
     '';
   };
+
+  home.file.".config/hypr/pyprland.json".text = ''
+    {
+      "pyprland": {
+        "plugins": ["scratchpads", "magnify"]
+      },
+      "scratchpads": {
+        "term": {
+          "command": "alacritty --class scratchpad",
+          "margin": 50
+        },
+      }
+    }
+  '';
 }

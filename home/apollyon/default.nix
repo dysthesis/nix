@@ -1,39 +1,42 @@
-{ inputs, ... }: {
-  imports = [
-    ./hyprland
-    ./zathura
-    ./bash
-    ./fish
-    ./neofetch
-    ./starship
-    # ./firefox
-    # ./foot
-    ./neovim
-    ./anyrun
-    ./theme
-    ./services
-    ./emacs
-    ./git
-    ./ags
-    ./lf
-    ./wezterm
-    ./packages.nix
-  ] ++ [
-    inputs.anyrun.homeManagerModules.default
-    inputs.ags.homeManagerModules.default
-    inputs.nix-colors.homeManagerModules.default
-    inputs.nixvim.homeManagerModules.nixvim
-  ];
+{inputs, ...}: {
+  imports =
+    [
+      ./hyprland
+      ./zathura
+      ./bash
+      ./fish
+      ./alacritty
+      ./neofetch
+      ./starship
+      # ./firefox
+      # ./foot
+      ./neovim
+      ./anyrun
+      ./theme
+      ./services
+      ./emacs
+      ./git
+      ./ags
+      ./lf
+      ./wezterm
+      ./packages.nix
+    ]
+    ++ [
+      inputs.anyrun.homeManagerModules.default
+      inputs.ags.homeManagerModules.default
+      inputs.nix-colors.homeManagerModules.default
+      inputs.nixvim.homeManagerModules.nixvim
+    ];
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
     };
   };
 
   programs.home-manager.enable = true;
 
-  nixpkgs.overlays = [ inputs.neovim-nightly-overlay.overlay ];
+  nixpkgs.overlays = [inputs.neovim-nightly-overlay.overlay];
 
   home = {
     username = "apollyon";
