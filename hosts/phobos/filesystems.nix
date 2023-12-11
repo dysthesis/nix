@@ -1,4 +1,16 @@
-_: {
+{pkgs, ...}: {
+  # We need tpm2 for LUKS unlocking
+  security.tpm2 = {
+    enable = true;
+    pkcs11.enable = true;
+    tctiEnvironment.enable = true;
+    abrmd.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    tpm2-tss
+  ];
+
   boot.initrd.luks.devices = {
     root = {
       device = "/dev/disk/by-uuid/a80191c5-f37e-437a-be3b-2c3fe59cf890";
@@ -6,11 +18,12 @@ _: {
       allowDiscards = true;
     };
 
-    backup = {
-      device = "/dev/disk/by-uuid/86e97a24-8276-466e-9159-640a4f55a6f8";
-      allowDiscards = true;
-      crypttabExtraOpts = ["tpm2-device=auto"];
-    };
+    # backup = {
+    # device = "/dev/disk/by-uuid/86e97a24-8276-466e-9159-640a4f55a6f8";
+    # allowDiscards = true;
+    # preLVM = true;
+    # crypttabExtraOpts = ["tpm2-device=auto"];
+    # };
   };
 
   swapDevices = [
