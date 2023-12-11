@@ -11,52 +11,49 @@ _: {
     settings = {
       devices = {
         "Laptop" = {
-          id = "57QNWUZ-MS7F456-NOEU5PR-WLE35AI-UUFDR7J-GGD4BUV-FQW7ERF-XZ4QWA3";
+          id =
+            "57QNWUZ-MS7F456-NOEU5PR-WLE35AI-UUFDR7J-GGD4BUV-FQW7ERF-XZ4QWA3";
         };
         "Phone" = {
-          id = "TCID6BG-O26ICUC-CI7IDL4-IWW5XID-5DKMYRE-EBJDAA6-62MB3Q6-TTKKEQV";
+          id =
+            "TCID6BG-O26ICUC-CI7IDL4-IWW5XID-5DKMYRE-EBJDAA6-62MB3Q6-TTKKEQV";
         };
       };
       folders = {
-        "/home/apollyon/Org" = {
-          id = "rfewh-pvkvr";
-          label = "Org";
-          devices = ["Laptop" "Phone"];
-        };
         "/home/apollyon/Documents/Books" = {
           id = "vayct-kypsa";
           label = "Books";
-          devices = ["Laptop"];
+          devices = [ "Laptop" ];
         };
         "/home/apollyon/Sync" = {
           id = "awzmm-tzrc7";
           label = "Sync";
-          devices = ["Laptop" "Phone"];
+          devices = [ "Laptop" "Phone" ];
         };
         "/home/apollyon/Zotero" = {
           id = "zavoq-x9h3d";
           label = "Zotero";
-          devices = ["Laptop"];
+          devices = [ "Laptop" ];
         };
         "/home/apollyon/Music" = {
           id = "xv348-fy6qn";
           label = "Music";
-          devices = ["Laptop" "Phone"];
+          devices = [ "Laptop" "Phone" ];
         };
         "/home/apollyon/Pictures/Camera" = {
           id = "pixel_6a_zssj-photos";
           label = "Camera";
-          devices = ["Phone"];
+          devices = [ "Phone" ];
         };
         "/home/apollyon/Pictures/Images" = {
           id = "yfg4a-jvzny";
           label = "Pictures";
-          devices = ["Phone"];
+          devices = [ "Phone" ];
         };
         "/home/apollyon/Documents/Audiobooks" = {
           id = "mg921-1w6bm";
           label = "Audiobooks";
-          devices = ["Phone"];
+          devices = [ "Phone" ];
         };
       };
     };
