@@ -16,10 +16,11 @@ import Recorder from '../services/screenrecord.js';
 import options from '../options.js';
 import * as vars from '../variables.js';
 import { execAsync } from 'resource:///com/github/Aylur/ags/utils.js';
+import FocusedClient from './buttons/FocusedClient.js';
 
 const submenuItems = Variable(1);
 SystemTray.connect('changed', () => {
-    submenuItems.setValue(SystemTray.items.length + 1);
+  submenuItems.setValue(SystemTray.items.length + 1);
 });
 
 /**
@@ -28,98 +29,97 @@ SystemTray.connect('changed', () => {
  * @param {(self: T) => boolean=} condition
  */
 const SeparatorDot = (service, condition) => {
-    const visibility = self => {
-        if (!options.bar.separators.value)
-            return self.visible = false;
+  const visibility = self => {
+    if (!options.bar.separators.value)
+      return self.visible = false;
 
-        self.visible = condition && service
-            ? condition(service)
-            : options.bar.separators.value;
-    };
+    self.visible = condition && service
+      ? condition(service)
+      : options.bar.separators.value;
+  };
 
-    const conn = service ? [[service, visibility]] : [];
-    return Widget.Separator({
-        connections: [['draw', visibility], ...conn],
-        binds: [['visible', options.bar.separators]],
-        vpack: 'center',
-    });
+  const conn = service ? [[service, visibility]] : [];
+  return Widget.Separator({
+    connections: [['draw', visibility], ...conn],
+    binds: [['visible', options.bar.separators]],
+    vpack: 'center',
+  });
 };
 
 const Start = () => Widget.Box({
-    class_name: 'start',
-    children: [
-        OverviewButton(),
-        SeparatorDot(),
-        Workspaces(),
-        Widget.Box({ hexpand: true }),
-    ],
+  class_name: 'start',
+  children: [
+    OverviewButton(),
+    SeparatorDot(),
+    Workspaces(),
+    SeparatorDot(),
+    FocusedClient(),
+    Widget.Box({ hexpand: true }),
+  ],
 });
 
 const Center = () => Widget.Box({
-    class_name: 'center',
-    children: [
-        DateButton(),
-    ],
+  class_name: 'center',
+  children: [
+    DateButton(),
+  ],
 });
 
 const SysProgress = (type, title, unit) => Widget.Box({
-    class_name: `circular-progress-box ${type}`,
-    hexpand: false,
-    binds: [['tooltipText', vars[type], 'value', v =>
-        `${title}: ${Math.floor(v * 100)}${unit}`]],
-    child: Widget.CircularProgress({
-        hexpand: true,
-        inverted: false,
-        class_name: `circular-progress ${type}`,
-        binds: [['value', vars[type]]],
-        start_at: 0.75,
-    }),
+  class_name: `circular-progress-box ${type}`,
+  hexpand: false,
+  binds: [['tooltipText', vars[type], 'value', v =>
+    `${title}: ${Math.floor(v * 100)}${unit}`]],
+  child: Widget.CircularProgress({
+    hexpand: true,
+    inverted: false,
+    class_name: `circular-progress ${type}`,
+    binds: [['value', vars[type]]],
+    start_at: 0.75,
+  }),
 });
 
 const End = () => Widget.Box({
-    class_name: 'end',
-    children: [
-        Widget.Box({ hexpand: true }),
+  class_name: 'end',
+  children: [
+    Widget.Box({ hexpand: true }),
 
-        SubMenu({
-            items: submenuItems,
-            children: [
-                SysTray(),
-            ],
-        }),
+    SubMenu({
+      items: submenuItems,
+      children: [
+        SysTray(),
+      ],
+    }),
 
-        Widget.Box({
-            class_name: 'system-info horizontal',
-            children: [
-                SysProgress('cpu', 'CPU', '%'),
-                SysProgress('ram', 'RAM', '%'),
-                SysProgress('temp', 'Temperature', '°'),
-            ],
-        }),
+    Widget.Box({
+      class_name: 'system-info horizontal',
+      children: [
+        SysProgress('cpu', 'CPU', '%'),
+        SysProgress('ram', 'RAM', '%'),
+        SysProgress('temp', 'Temperature', '°'),
+      ],
+    }),
 
-        SeparatorDot(),
-        SeparatorDot(Recorder, r => r.recording),
-        BatteryBar(Battery, b => b.available),
-        SeparatorDot(Battery, b => b.available),
-        SystemIndicators(),
-        SeparatorDot(),
-        PowerMenu(),
-    ],
+    SeparatorDot(),
+    SystemIndicators(),
+    SeparatorDot(),
+    PowerMenu(),
+  ],
 });
 
 /** @param {number} monitor */
 export default monitor => Widget.Window({
-    name: `bar${monitor}`,
-    class_name: 'transparent',
-    exclusivity: 'exclusive',
-    monitor,
-    binds: [['anchor', options.bar.position, 'value', pos => ([
-        pos, 'left', 'right',
-    ])]],
-    child: Widget.CenterBox({
-        class_name: 'panel',
-        start_widget: Start(),
-        center_widget: Center(),
-        end_widget: End(),
-    }),
+  name: `bar${monitor}`,
+  class_name: 'transparent',
+  exclusivity: 'exclusive',
+  monitor,
+  binds: [['anchor', options.bar.position, 'value', pos => ([
+    pos, 'left', 'right',
+  ])]],
+  child: Widget.CenterBox({
+    class_name: 'panel',
+    start_widget: Start(),
+    center_widget: Center(),
+    end_widget: End(),
+  }),
 });
