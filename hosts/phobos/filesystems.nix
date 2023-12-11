@@ -5,6 +5,12 @@ _: {
       preLVM = true;
       allowDiscards = true;
     };
+
+    backup = {
+      device = "/dev/disk/by-uuid/86e97a24-8276-466e-9159-640a4f55a6f8";
+      allowDiscards = true;
+      crypttabExtraOpts = ["tpm2-device=auto"];
+    };
   };
 
   swapDevices = [

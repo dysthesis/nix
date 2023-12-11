@@ -1,4 +1,8 @@
-{inputs, pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   nix = {
     package = pkgs.nixFlakes;
     settings = {
