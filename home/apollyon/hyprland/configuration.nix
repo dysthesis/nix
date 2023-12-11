@@ -120,6 +120,7 @@ in {
 
       bind = [
         "$MOD, RETURN, exec, footclient"
+        "$MOD, A, exec,pypr toggle agenda && hyprctl dispatch bringactivetotop"
         "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
@@ -217,8 +218,6 @@ in {
 
       # █▀ █▀█ █▀▀ █▀▀ █ ▄▀█ █░░
       # ▄█ █▀▀ ██▄ █▄▄ █ █▀█ █▄▄
-       bind = SUPER, a, togglespecialworkspace
-       bind = SUPERSHIFT, a, movetoworkspace, special
        bind = SUPER, c, exec, hyprctl dispatch centerwindow
     '';
   };
@@ -231,6 +230,10 @@ in {
       "scratchpads": {
         "term": {
           "command": "foot --title scratchpad",
+          "margin": 50
+        },
+        "agenda": {
+          "command": "emacsclient -c -e '(dysthesis/agenda-scratchpad)'",
           "margin": 50
         }
       }
