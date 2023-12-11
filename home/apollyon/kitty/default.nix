@@ -1,8 +1,8 @@
-{config, ...} : {
+{ config, ... }: {
   programs.kitty = {
     enable = true;
     font = {
-      name = "CartographCF Nerd Font";
+      name = "JetBrainsMono Nerd Font";
       size = 12;
     };
 
@@ -30,7 +30,7 @@
       color1 = "#${config.colorScheme.colors.base0C}";
       color9 = "#${config.colorScheme.colors.base0C}";
 
-      color2  = "#${config.colorScheme.colors.base0D}";
+      color2 = "#${config.colorScheme.colors.base0D}";
       color10 = "#${config.colorScheme.colors.base0D}";
 
       color3 = "#${config.colorScheme.colors.base0F}";

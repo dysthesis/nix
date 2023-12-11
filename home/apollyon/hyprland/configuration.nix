@@ -104,7 +104,7 @@ in {
         animate_manual_resizes = true;
         mouse_move_focuses_monitor = true;
         enable_swallow = true;
-        swallow_regex = "wezterm|thunar";
+        swallow_regex = "kitty|thunar";
       };
 
       layerrule = [
@@ -119,7 +119,7 @@ in {
       ];
 
       bind = [
-        "$MOD, RETURN, exec, wezterm"
+        "$MOD, RETURN, exec, kitty"
         "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
@@ -181,7 +181,7 @@ in {
         "fullscreen,title:wlogout"
 
         "idleinhibit focus, class:^(mpv)$"
-        "idleinhibit focus,class:wezterm"
+        "idleinhibit focus,class:kitty"
 
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,title:^(Firefox — Sharing Indicator)$"
@@ -230,7 +230,7 @@ in {
       },
       "scratchpads": {
         "term": {
-          "command": "alacritty --class scratchpad",
+          "command": "kitty --class scratchpad",
           "margin": 50
         }
       }
