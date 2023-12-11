@@ -4,7 +4,7 @@
     ./zathura
     ./bash
     ./fish
-    ./alacritty
+    # ./alacritty
     ./kitty
     ./neofetch
     ./starship
