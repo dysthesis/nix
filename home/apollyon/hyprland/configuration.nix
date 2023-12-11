@@ -6,7 +6,7 @@ in {
       # define the mod key
       "$MOD" = "SUPER";
       "$scratchpadsize" = "size 80% 85%";
-      "$scratchpad" = "class:^(scratchpad)";
+      "$scratchpad" = "title:^(scratchpad)";
 
       exec-once = [
         "wl-paste --type text --watch cliphist store"
@@ -16,7 +16,7 @@ in {
         "udiskie"
         "dictionary"
         "pypr"
-        # "foot -s"
+        "foot -s"
         "swww init"
         "swww img ${wallpaper}"
         "hyprctl reload"
@@ -104,7 +104,7 @@ in {
         animate_manual_resizes = true;
         mouse_move_focuses_monitor = true;
         enable_swallow = true;
-        swallow_regex = "kitty|thunar";
+        swallow_regex = "footclient|thunar";
       };
 
       layerrule = [
@@ -119,7 +119,7 @@ in {
       ];
 
       bind = [
-        "$MOD, RETURN, exec, kitty"
+        "$MOD, RETURN, exec, footclient"
         "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
@@ -181,7 +181,7 @@ in {
         "fullscreen,title:wlogout"
 
         "idleinhibit focus, class:^(mpv)$"
-        "idleinhibit focus,class:kitty"
+        "idleinhibit focus,class:footclient"
 
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,title:^(Firefox — Sharing Indicator)$"
@@ -230,7 +230,7 @@ in {
       },
       "scratchpads": {
         "term": {
-          "command": "kitty --class scratchpad",
+          "command": "foot --title scratchpad",
           "margin": 50
         }
       }

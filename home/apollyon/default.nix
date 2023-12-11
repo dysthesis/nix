@@ -5,11 +5,11 @@
     ./bash
     ./fish
     # ./alacritty
-    ./kitty
+    # ./kitty
     ./neofetch
     ./starship
     # ./firefox
-    # ./foot
+    ./foot
     ./neovim
     ./anyrun
     ./theme
