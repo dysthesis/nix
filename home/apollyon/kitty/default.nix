@@ -11,7 +11,9 @@
                      background_opacity = "1";
                      window_margin_width = 15;
                      disable_ligatures = "never";
-                     # Colourcheme
+                     update_check_interval = "0";
+
+                     # Colourscheme
                      foreground = "#${colour.base04}";
                      background = "#${colour.base00}";
                      selection_background = "#${colour.base07}";
@@ -47,6 +49,6 @@
                      color19 = "#${colour.base02}";
                      color20 = "#${colour.base04}";
                      color21 = "#${colour.base06}";
-               };
+    };
   };
 }
