@@ -6,48 +6,47 @@
       size = 12;
     };
 
-    settings = {
-      background_opacity = "1";
-      window_margin_width = 15;
-      disable_ligatures = "never";
-      # Colorscheme
-      foreground = "#${config.colorScheme.colors.base06}";
-      background = "#${config.colorScheme.colors.base00}";
-      selection_background = "#${config.colorScheme.colors.base03}";
-      selection_foreground = "#${config.colorScheme.colors.base05}";
-      url_color = "#${config.colorScheme.colors.base0A}";
-      cursor = "#${config.colorScheme.colors.base05}";
-      active_border_color = "#${config.colorScheme.colors.base0A}";
-      inactive_border_color = "#${config.colorScheme.colors.base0C}";
-      active_tab_background = "#${config.colorScheme.colors.base0A}";
-      active_tab_foreground = "#${config.colorScheme.colors.base00}";
-      inactive_tab_background = "#${config.colorScheme.colors.base02}";
-      inactive_tab_foreground = "#${config.colorScheme.colors.base04}";
-      tab_bar_background = "#${config.colorScheme.colors.base00}";
-      color0 = "#${config.colorScheme.colors.base01}";
-      color8 = "#${config.colorScheme.colors.base02}";
-
-      color1 = "#${config.colorScheme.colors.base0C}";
-      color9 = "#${config.colorScheme.colors.base0C}";
-
-      color2 = "#${config.colorScheme.colors.base0D}";
-      color10 = "#${config.colorScheme.colors.base0D}";
-
-      color3 = "#${config.colorScheme.colors.base0F}";
-      color11 = "#${config.colorScheme.colors.base0F}";
-
-      color4 = "#${config.colorscheme.colors.base0B}";
-      color12 = "#${config.colorscheme.colors.base0B}";
-
-      color5 = "#${config.colorScheme.colors.base0A}";
-      color13 = "#${config.colorScheme.colors.base0A}";
-
-      color6 = "#${config.colorscheme.colors.base08}";
-      color14 = "#${config.colorscheme.colors.base08}";
-
-      color7 = "#${config.colorScheme.colors.base04}";
-      color15 = "#${config.colorScheme.colors.base06}";
-
-    };
+    settings = let colour = config.colorScheme.colors;
+               in {
+                     background_opacity = "1";
+                     window_margin_width = 15;
+                     disable_ligatures = "never";
+                     # Colourcheme
+                     foreground = "#${colour.base04}";
+                     background = "#${colour.base00}";
+                     selection_background = "#${colour.base07}";
+                     selection_foreground = "#${colour.base01}";
+                     url_color = "#${colour.base0C}";
+                     cursor = "#${colour.base05}";
+                     active_border_color = "#${colour.base0A}";
+                     inactive_border_color = "#${colour.base0C}";
+                     active_tab_background = "#${colour.base0A}";
+                     active_tab_foreground = "#${colour.base00}";
+                     inactive_tab_background = "#${colour.base02}";
+                     inactive_tab_foreground = "#${colour.base04}";
+                     tab_bar_background = "#${colour.base00}";
+                     color0 = "#${colour.base00}";
+                     color1 = "#${colour.base08}";
+                     color2 = "#${colour.base0B}";
+                     color3 = "#${colour.base0A}";
+                     color4 = "#${colour.base0D}";
+                     color5 = "#${colour.base0E}";
+                     color6 = "#${colour.base0C}";
+                     color7 = "#${colour.base05}";
+                     color8 = "#${colour.base03}";
+                     color9 = "#${colour.base08}";
+                     color10 = "#${colour.base0B}";
+                     color11 = "#${colour.base0A}";
+                     color12 = "#${colour.base0D}";
+                     color13 = "#${colour.base0E}";
+                     color14 = "#${colour.base0C}";
+                     color15 = "#${colour.base07}";
+                     color16 = "#${colour.base09}";
+                     color17 = "#${colour.base0F}";
+                     color18 = "#${colour.base01}";
+                     color19 = "#${colour.base02}";
+                     color20 = "#${colour.base04}";
+                     color21 = "#${colour.base06}";
+               };
   };
 }

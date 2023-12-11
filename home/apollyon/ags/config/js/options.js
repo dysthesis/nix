@@ -283,6 +283,7 @@ export default {
       ['org.gnome.TextEditor', 'Text Editor'],
       ['org.gnome.design.IconLibrary', 'Icon Library'],
       ['blueberry.py', 'Blueberry'],
+      ['kitty', ' Kitty'],
       ['org.wezfurlong.wezterm', ' Wezterm'],
       ['com.raggesilver.BlackBox', 'BlackBox'],
       ['firefox', 'Firefox'],
