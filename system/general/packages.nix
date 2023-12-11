@@ -6,7 +6,7 @@
                   # For TPM LUKS unlocking
                   tpm2-tss
                   gptfdisk
-
+                  git-remote-gcrypt
                   # Language Server for Nix
                   nil
                   statix
