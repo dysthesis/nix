@@ -1,10 +1,13 @@
-_: let
-  wallpaper = ./wallpaper.jpg;
+_:
+let wallpaper = ./wallpaper.jpg;
 in {
   wayland.windowManager.hyprland = {
     settings = {
       # define the mod key
       "$MOD" = "SUPER";
+      "$scratchpadsize" = "size 80% 85%";
+      "$scratchpad" = "class:^(scratchpad)";
+
       exec-once = [
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
@@ -38,7 +41,7 @@ in {
       };
       decoration = {
         # fancy corners
-        rounding = 10;
+        rounding = 12;
 
         # blur
         blur = {
@@ -85,7 +88,7 @@ in {
         no_gaps_when_only = false;
       };
 
-      master = {new_is_master = false;};
+      master = { new_is_master = false; };
 
       gestures = {
         workspace_swipe = true;
@@ -117,6 +120,7 @@ in {
 
       bind = [
         "$MOD, RETURN, exec, wezterm"
+        "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
         "$MOD, backspace, exec, wlogout"
@@ -153,7 +157,7 @@ in {
         "$MOD, mouse_up, workspace, e-1"
       ];
 
-      bindm = ["$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow"];
+      bindm = [ "$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow" ];
       # binds that will be repeated, a.k.a can be held to toggle multiple times
       binde = [
         # volume controls
@@ -186,6 +190,11 @@ in {
         "pin, title:^(Picture-in-Picture)$"
 
         "float,class:udiskie"
+
+        "float,$scratchpad"
+        "$scratchpadsize,$scratchpad"
+        "workspace special silent,$scratchpad"
+        "center,$scratchpad"
 
         # pavucontrol
         "float,class:pavucontrol"
@@ -223,7 +232,7 @@ in {
         "term": {
           "command": "alacritty --class scratchpad",
           "margin": 50
-        },
+        }
       }
     }
   '';
