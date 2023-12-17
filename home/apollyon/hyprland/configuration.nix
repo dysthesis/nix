@@ -120,14 +120,14 @@ in {
 
       bind = [
         "$MOD, RETURN, exec, footclient"
-        "$MOD, A, exec,pypr toggle agenda && hyprctl dispatch bringactivetotop"
+        #"$MOD, A, exec,pypr toggle agenda && hyprctl dispatch bringactivetotop"
         "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
         "$MOD, backspace, exec, wlogout"
         "$MOD, E, exec, emacsclient -c -a 'emacs'"
         "$MOD, T, togglefloating"
-        "$MOD, R, exec, killall anyrun || run-as-service $(anyrun)"
+        "$MOD, R, exec, anyrun"
         "$MOD, F, fullscreen"
         "$MOD, left, movefocus, l"
         "$MOD, right, movefocus, r"
@@ -230,10 +230,6 @@ in {
       "scratchpads": {
         "term": {
           "command": "foot --title scratchpad",
-          "margin": 50
-        },
-        "agenda": {
-          "command": "emacsclient -c -e '(dysthesis/agenda-scratchpad)'",
           "margin": 50
         }
       }
