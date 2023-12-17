@@ -1,10 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     font-awesome
-    adw-gtk3
-    nerdfonts
     libsForQt5.qt5ct
-    breeze-icons
     qt6Packages.qtstyleplugin-kvantum
     libsForQt5.qtstyleplugin-kvantum
   ];
@@ -24,6 +21,12 @@
     iconTheme = {
       name = "Tela-black-dark";
       package = pkgs.tela-icon-theme;
+    };
+
+    font = {
+      name = "Inter Medium";
+      size = 10;
+      package = pkgs.inter;
     };
   };
 
