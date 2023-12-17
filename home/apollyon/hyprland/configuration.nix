@@ -1,5 +1,9 @@
-_:
-let wallpaper = ./wallpaper.jpg;
+{ pkgs, ... }:
+let
+  wallpaper = ./wallpaper.jpg;
+  open-agenda = pkgs.writeShellScriptBin "open-agenda" ''
+    emacsclient -nc -e '(org-capture)'
+  '';
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -120,7 +124,6 @@ in {
 
       bind = [
         "$MOD, RETURN, exec, footclient"
-        #"$MOD, A, exec,pypr toggle agenda && hyprctl dispatch bringactivetotop"
         "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
