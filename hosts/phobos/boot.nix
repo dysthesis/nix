@@ -15,7 +15,7 @@
 
     loader = {
       systemd-boot = {
-        enable = lib.mkForce false;
+        enable = lib.mkForce true;
         editor = false;
         consoleMode = "max";
       };
@@ -32,10 +32,10 @@
       };
     };
 
-    bootspec.enable = true;
+    bootspec.enable = false;
 
     lanzaboote = {
-      enable = true;
+      enable = false;
       pkiBundle = "/etc/secureboot";
     };
 
