@@ -13,22 +13,15 @@
 
   boot.initrd.luks.devices = {
     root = {
-      device = "/dev/disk/by-uuid/ba2332d4-7815-4a37-ae9c-04e0d55fde19";
+      device = "/dev/disk/by-uuid/123c25de-82aa-493d-bbaf-b1380466f7d7";
       preLVM = true;
       allowDiscards = true;
     };
-
-    # backup = {
-    # device = "/dev/disk/by-uuid/86e97a24-8276-466e-9159-640a4f55a6f8";
-    # allowDiscards = true;
-    # preLVM = true;
-    # crypttabExtraOpts = ["tpm2-device=auto"];
-    # };
   };
 
   swapDevices = [
     {
-      device = "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_1TB_S5GXNF0W187823Z-part2";
+      device = "/dev/disk/by-partuuid/029ddcb0-c4d0-47d7-b34c-46712ca7c4b0";
       randomEncryption = {
         enable = true;
         allowDiscards = true;
@@ -60,7 +53,7 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/DA2B-BC2E";
+      device = "/dev/disk/by-uuid/723E-9A5D";
       fsType = "vfat";
     };
   };

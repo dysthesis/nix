@@ -215,8 +215,8 @@ in {
       # █▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█
       # █░▀░█ █▄█ █░▀█ █ ░█░ █▄█ █▀▄
 
-       monitor = HDMI-A-1,1920x1080,0x0,1  # Acer monitor
-       monitor = DP-2,1920x1080,1920x0,1   # MSI monitor
+       monitor = DP-1,1920x1080@60,0x0,1  # Acer monitor
+       monitor = DP-2,1920x1080@165,1920x0,1   # MSI monitor
 
 
       # █▀ █▀█ █▀▀ █▀▀ █ ▄▀█ █░░

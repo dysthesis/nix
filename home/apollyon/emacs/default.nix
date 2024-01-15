@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.emacs = {
     enable = true;
     package = pkgs.emacs29-pgtk;
@@ -14,6 +14,18 @@
         djvu
       ];
   };
+
+  # Grab Doom Emacs automatically
+  # TODO: Figure out how to automatically do a 'doom install' and 'doom sync -u' too. For now, it still complains about not being able to find emacs
+  home.activation.doomEmacs = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+  if [ ! -d "${config.home.homeDirectory}/.config/doom" ]; then
+  	${pkgs.git}/bin/git clone --depth 1 https://codeberg.org/dysthesis/doom ${config.home.homeDirectory}/.config/doom
+  fi
+
+  if [ ! -d "${config.home.homeDirectory}/.config/emacs" ]; then
+  	${pkgs.git}/bin/git clone --depth 1 https://github.com/doomemacs/doomemacs ${config.home.homeDirectory}/.config/emacs
+  fi
+  '';
 
   services.emacs = { enable = true; };
 

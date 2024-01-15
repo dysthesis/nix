@@ -11,7 +11,7 @@
     ripgrep
     lexend
     python311Packages.material-color-utilities
-    poetry
+    #poetry
     python311Packages.build
     python311Packages.pillow
     material-symbols
