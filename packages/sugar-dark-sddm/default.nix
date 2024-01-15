@@ -2,7 +2,7 @@
 { pkgs }:
 
 let
-  image = ../../home/apollyon/hyprland/wallpaper.jpg;
+  image = ../../home/apollyon/hyprland/wallpaper.png;
 in
 
 pkgs.stdenv.mkDerivation {

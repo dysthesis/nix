@@ -9,7 +9,7 @@ with colors; {
     	exit_behavior = "CloseOnCleanExit",
 
       enable_wayland = false, -- see https://github.com/wez/wezterm/issues/4483
-      enable_scroll_bar = true,
+      enable_scroll_bar = false,
 
     	font_size = 12.0,
     	font = wezterm.font_with_fallback {

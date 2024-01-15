@@ -5,10 +5,7 @@ home.packages = with pkgs; [
     fontforge
     firefox
     thunderbird
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
-    xfce.thunar-media-tags-plugin
+    pcmanfm
     noto-fonts
     roboto
     lato

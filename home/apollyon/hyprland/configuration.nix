@@ -1,5 +1,5 @@
 { pkgs, ... }:
-let wallpaper = ./wallpaper.jpg;
+let wallpaper = ./wallpaper.png;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -126,6 +126,7 @@ in {
         "$MOD, E, exec, emacsclient -c -a 'emacs'"
         "$MOD, T, togglefloating"
         "$MOD, R, exec, anyrun"
+        "$MODSHIFT, R, exec, pkill ags; ags &"
         "$MOD, F, fullscreen"
         "$MOD, left, movefocus, l"
         "$MOD, right, movefocus, r"
@@ -154,6 +155,8 @@ in {
         "$MODSHIFT, 0, movetoworkspace, 10"
         "$MOD, mouse_down, workspace, e+1"
         "$MOD, mouse_up, workspace, e-1"
+	"$MOD, H, splitratio, -0.05"
+	"$MOD, L, splitratio, 0.05"
       ];
 
       bindm = [ "$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow" ];
@@ -209,10 +212,7 @@ in {
     extraConfig = ''
       # █▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█
       # █░▀░█ █▄█ █░▀█ █ ░█░ █▄█ █▀▄
-
-       monitor = DP-1,1920x1080@60,0x0,1  # Acer monitor
-       monitor = DP-2,1920x1080@165,1920x0,1   # MSI monitor
-
+        monitor=,highres,auto,1
 
       # █▀ █▀█ █▀▀ █▀▀ █ ▄▀█ █░░
       # ▄█ █▀▀ ██▄ █▄▄ █ █▀█ █▄▄
