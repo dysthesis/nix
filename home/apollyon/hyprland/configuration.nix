@@ -1,16 +1,12 @@
 { pkgs, ... }:
-let
-  wallpaper = ./wallpaper.jpg;
-  open-agenda = pkgs.writeShellScriptBin "open-agenda" ''
-    emacsclient -nc -e '(org-capture)'
-  '';
+let wallpaper = ./wallpaper.jpg;
 in {
   wayland.windowManager.hyprland = {
     settings = {
       # define the mod key
       "$MOD" = "SUPER";
       "$scratchpadsize" = "size 80% 85%";
-      "$scratchpad" = "title:^(scratchpad)";
+      "$scratchpad" = "class:^(scratchpad)";
 
       exec-once = [
         "wl-paste --type text --watch cliphist store"
@@ -20,7 +16,6 @@ in {
         "udiskie"
         "dictionary"
         "pypr"
-        "foot -s"
         "swww init"
         "swww img ${wallpaper}"
         "hyprctl reload"
@@ -108,7 +103,7 @@ in {
         animate_manual_resizes = true;
         mouse_move_focuses_monitor = true;
         enable_swallow = true;
-        swallow_regex = "footclient|thunar";
+        swallow_regex = "wezterm|thunar";
       };
 
       layerrule = [
@@ -123,7 +118,7 @@ in {
       ];
 
       bind = [
-        "$MOD, RETURN, exec, footclient"
+        "$MOD, RETURN, exec, wezterm"
         "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
@@ -185,7 +180,7 @@ in {
         "fullscreen,title:wlogout"
 
         "idleinhibit focus, class:^(mpv)$"
-        "idleinhibit focus,class:footclient"
+        "idleinhibit focus,class:wezterm"
 
         "idleinhibit fullscreen, class:^(firefox)$"
         "float,title:^(Firefox — Sharing Indicator)$"
@@ -232,7 +227,7 @@ in {
       },
       "scratchpads": {
         "term": {
-          "command": "foot --title scratchpad",
+          "command": "wezterm start --class scratchpad",
           "margin": 50
         }
       }

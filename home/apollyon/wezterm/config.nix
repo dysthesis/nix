@@ -23,10 +23,10 @@ with colors; {
     	window_background_opacity = 1,
 
     	window_padding = {
-    		left = 16,
-    		right = 16,
-    		top = 16,
-    		bottom = 16,
+    		left = 20,
+    		right = 20,
+    		top = 20,
+    		bottom = 20,
     	},
 
     	colors = {

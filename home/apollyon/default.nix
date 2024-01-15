@@ -4,6 +4,7 @@
     ./zathura
     ./bash
     ./fish
+    ./wezterm
     # ./alacritty
     # ./kitty
     ./neofetch
