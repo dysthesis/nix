@@ -2,7 +2,7 @@
   home.packages = with pkgs; [
     sassc
     papirus-icon-theme
-
+    brightnessctl
     coreutils
     curl
     gjs
@@ -18,7 +18,7 @@
 
   programs.ags = {
     enable = true;
-    configDir = ./config;
+    # configDir = ./config;
     extraPackages = [pkgs.libsoup_3];
   };
 }
