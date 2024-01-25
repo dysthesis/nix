@@ -15,11 +15,14 @@
 
     loader = {
       systemd-boot = {
-        enable = lib.mkForce false;
+        enable = lib.mkForce true;
         editor = false;
         consoleMode = "max";
       };
-      efi.canTouchEfiVariables = true;
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/boot/efi";
+      };
       timeout = 5;
       grub = {
         enable = false;
@@ -32,10 +35,10 @@
       };
     };
 
-    bootspec.enable = true;
+    bootspec.enable = false;
 
     lanzaboote = {
-      enable = true;
+      enable = false;
       pkiBundle = "/etc/secureboot";
     };
 
