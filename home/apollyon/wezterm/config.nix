@@ -1,4 +1,4 @@
-{ colors }:
+{colors}:
 with colors; {
   config = ''
     local wezterm = require("wezterm")
@@ -13,7 +13,7 @@ with colors; {
 
     	font_size = 12.0,
     	font = wezterm.font_with_fallback {
-        "JetBrains Mono Nerd Font",
+        "JetBrainsMono Nerd Font",
       },
 
     	audible_bell = "Disabled",
@@ -21,7 +21,7 @@ with colors; {
     	hide_tab_bar_if_only_one_tab = true,
     	default_cursor_style = "SteadyUnderline",
     	window_background_opacity = 1,
-
+      cell_width = 0.85,
     	window_padding = {
     		left = 20,
     		right = 20,
@@ -64,7 +64,7 @@ with colors; {
       		  bg_color = "#${base00}",
       		  fg_color = "#${base0D}",
       	  },
-                       },
+        },
 
 
         ansi = {

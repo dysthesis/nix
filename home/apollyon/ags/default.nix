@@ -1,6 +1,8 @@
-{ config, lib, pkgs, ... }: {
+{pkgs, ...}: {
   home.packages = with pkgs; [
     sassc
+    papirus-icon-theme
+
     coreutils
     curl
     gjs
@@ -16,7 +18,7 @@
 
   programs.ags = {
     enable = true;
-    # configDir = ./config;
-    extraPackages = [ pkgs.libsoup_3 ];
+    configDir = ./config;
+    extraPackages = [pkgs.libsoup_3];
   };
 }
