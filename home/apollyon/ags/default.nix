@@ -1,4 +1,8 @@
-{ lib, pkgs, ... }: {
+{
+        lib,
+        pkgs,
+        ...
+}: {
         home.packages = with pkgs; [
                 blueberry
                 brightnessctl
@@ -50,6 +54,6 @@
         programs.ags = {
                 enable = true;
                 configDir = ./config;
-                extraPackages = with pkgs; [ gtksourceview libsoup_3 ];
+                extraPackages = with pkgs; [gtksourceview libsoup_3];
         };
 }

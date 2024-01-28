@@ -11,9 +11,8 @@ import Cheatsheet from './widgets/cheatsheet/main.js';
 import Corner from './widgets/screencorners/main.js';
 import Indicator from './widgets/indicators/main.js';
 import Osk from './widgets/onscreenkeyboard/main.js';
-import Overview from './widgets/overview/main.js';
+// import Overview from './widgets/overview/main.js';
 import Session from './widgets/session/main.js';
-import SideLeft from './widgets/sideleft/main.js';
 import SideRight from './widgets/sideright/main.js';
 
 const range = (length, start = 1) => Array.from({ length }, (_, i) => i + start);
@@ -34,7 +33,7 @@ function applyStyle() {
 applyStyle();
 
 const Windows = () => [
-    Overview(),
+    // Overview(),
     forMonitors(Indicator),
     Cheatsheet(),
     SideRight(),
@@ -51,8 +50,6 @@ export default {
     stackTraceOnError: true,
     closeWindowDelay: { // For animations
         'sideright': CLOSE_ANIM_TIME,
-        'sideleft': CLOSE_ANIM_TIME,
-        'osk': CLOSE_ANIM_TIME,
     },
     windows: Windows().flat(1),
 };

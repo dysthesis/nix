@@ -11,7 +11,7 @@
     ./starship
     # ./firefox
     ./foot
-    #./neovim
+    ./neovim
     ./anyrun
     ./theme
     ./services

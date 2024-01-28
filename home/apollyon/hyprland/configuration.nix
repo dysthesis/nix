@@ -132,6 +132,7 @@ in {
         "$MOD, right, movefocus, r"
         "$MOD, up, movefocus, u"
         "$MOD, down, movefocus, d"
+        "$MOD, delete, exec, ags run-js \"App.toggleWindow('session')\""
         ''$MOD, P, exec, grim -g "$(slurp)" - | swappy -f -''
         "$MOD, 1, focusworkspaceoncurrentmonitor, 1"
         "$MOD, 2, focusworkspaceoncurrentmonitor, 2"

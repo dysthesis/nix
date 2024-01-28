@@ -41,7 +41,7 @@ export const Bar = async (monitor = 0) => {
                     homogeneous: true,
                     children: [await OptionalWorkspaces()],
                 }),
-                SideModule([System(), Tray()]),
+                SideModule([System()]),
             ]
         }),
         endWidget: Indicators(),
