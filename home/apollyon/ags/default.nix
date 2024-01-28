@@ -49,7 +49,7 @@
 
         programs.ags = {
                 enable = true;
-                # configDir = ./config;
+                configDir = ./config;
                 extraPackages = with pkgs; [ gtksourceview libsoup_3 ];
         };
 }
