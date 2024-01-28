@@ -1,5 +1,5 @@
-{ pkgs, ... }:
-let wallpaper = ./wallpaper.png;
+_: let
+  wallpaper = ./wallpaper.png;
 in {
   wayland.windowManager.hyprland = {
     settings = {
@@ -87,7 +87,7 @@ in {
         no_gaps_when_only = false;
       };
 
-      master = { new_is_master = false; };
+      master = {new_is_master = false;};
 
       gestures = {
         workspace_swipe = true;
@@ -120,6 +120,7 @@ in {
       bind = [
         "$MOD, RETURN, exec, wezterm"
         "$MOD, Z, exec,pypr toggle term && hyprctl dispatch bringactivetotop"
+        "$MOD, B, exec,pypr toggle btop && hyprctl dispatch bringactivetotop"
         "$MOD, Q, killactive"
         "$MOD, M, exit"
         "$MOD, backspace, exec, wlogout"
@@ -132,7 +133,6 @@ in {
         "$MOD, right, movefocus, r"
         "$MOD, up, movefocus, u"
         "$MOD, down, movefocus, d"
-        "$MOD, delete, exec, ags run-js \"App.toggleWindow('session')\""
         ''$MOD, P, exec, grim -g "$(slurp)" - | swappy -f -''
         "$MOD, 1, focusworkspaceoncurrentmonitor, 1"
         "$MOD, 2, focusworkspaceoncurrentmonitor, 2"
@@ -156,11 +156,20 @@ in {
         "$MODSHIFT, 0, movetoworkspace, 10"
         "$MOD, mouse_down, workspace, e+1"
         "$MOD, mouse_up, workspace, e-1"
-	"$MOD, H, splitratio, -0.05"
-	"$MOD, L, splitratio, 0.05"
+        "$MOD, Semicolon, splitratio, -0.05"
+        "$MOD, Apostrophe, splitratio, 0.05"
+        "$MOD, H, movefocus, l"
+        "$MOD, J, movefocus, u"
+        "$MOD, K, movefocus, d"
+        "$MOD, L, movefocus, r"
+        "$MODSHIFT, H, movewindow, l"
+        "$MODSHIFT, J, movewindow, u"
+        "$MODSHIFT, K, movewindow, d"
+        "$MODSHIFT, L, movewindow, r"
+        "$MOD, U, exec, firefox -P University"
       ];
 
-      bindm = [ "$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow" ];
+      bindm = ["$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow"];
       # binds that will be repeated, a.k.a can be held to toggle multiple times
       bindle = [
         # volume controls
@@ -228,7 +237,7 @@ in {
       },
       "scratchpads": {
         "term": {
-          "command": "wezterm start --class scratchpad",
+          "command": "wezterm start --class=scratchpad",
           "margin": 50
         }
       }

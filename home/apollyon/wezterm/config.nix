@@ -20,7 +20,7 @@ with colors; {
       enable_tab_bar = true,
     	hide_tab_bar_if_only_one_tab = true,
     	default_cursor_style = "SteadyUnderline",
-    	window_background_opacity = 1,
+    	window_background_opacity = 0.65,
       cell_width = 0.85,
     	window_padding = {
     		left = 20,
