@@ -13,7 +13,7 @@
 
   boot.initrd.luks.devices = {
     root = {
-      device = "/dev/disk/by-uuid/6195fba0-84e9-44e0-959f-88a1d3e4699b";
+      device = "/dev/disk/by-uuid/c8a2f9e6-909a-4c38-ac03-83cfa426e4f8";
       preLVM = true;
       allowDiscards = true;
     };
@@ -21,7 +21,7 @@
 
   swapDevices = [
     {
-      device = "/dev/disk/by-partuuid/48d8374c-583a-4a1e-9559-21d82a458b2f";
+      device = "/dev/disk/by-partuuid/6374fb99-1ed6-4909-af64-aa8facdc12b0";
       randomEncryption = {
         enable = true;
         allowDiscards = true;
@@ -53,7 +53,7 @@
     };
 
     "/boot/efi" = {
-      device = "/dev/disk/by-uuid/2432-FFFF";
+      device = "/dev/disk/by-uuid/7591-F8C1";
       fsType = "vfat";
     };
   };

@@ -113,8 +113,8 @@ in {
         "ignorezero, notifications"
         "blur, bar"
         "ignorezero, bar"
-        "ignorezero, ^(gtk-layer-shell|rofi)$"
-        "blur, ^(gtk-layer-shell|rofi)$"
+        "ignorezero, ^(gtk-layer-shell|anyrun)$"
+        "blur, ^(gtk-layer-shell|anyrun)$"
       ];
 
       bind = [
@@ -133,16 +133,16 @@ in {
         "$MOD, up, movefocus, u"
         "$MOD, down, movefocus, d"
         ''$MOD, P, exec, grim -g "$(slurp)" - | swappy -f -''
-        "$MOD, 1, workspace, 1"
-        "$MOD, 2, workspace, 2"
-        "$MOD, 3, workspace, 3"
-        "$MOD, 4, workspace, 4"
-        "$MOD, 5, workspace, 5"
-        "$MOD, 6, workspace, 6"
-        "$MOD, 7, workspace, 7"
-        "$MOD, 8, workspace, 8"
-        "$MOD, 9, workspace, 9"
-        "$MOD, 0, workspace, 10"
+        "$MOD, 1, focusworkspaceoncurrentmonitor, 1"
+        "$MOD, 2, focusworkspaceoncurrentmonitor, 2"
+        "$MOD, 3, focusworkspaceoncurrentmonitor, 3"
+        "$MOD, 4, focusworkspaceoncurrentmonitor, 4"
+        "$MOD, 5, focusworkspaceoncurrentmonitor, 5"
+        "$MOD, 6, focusworkspaceoncurrentmonitor, 6"
+        "$MOD, 7, focusworkspaceoncurrentmonitor, 7"
+        "$MOD, 8, focusworkspaceoncurrentmonitor, 8"
+        "$MOD, 9, focusworkspaceoncurrentmonitor, 9"
+        "$MOD, 0, focusworkspaceoncurrentmonitor, 10"
         "$MODSHIFT, 1, movetoworkspace, 1"
         "$MODSHIFT, 2, movetoworkspace, 2"
         "$MODSHIFT, 3, movetoworkspace, 3"
@@ -161,13 +161,12 @@ in {
 
       bindm = [ "$MOD,mouse:272,movewindow" "$MOD,mouse:273,resizewindow" ];
       # binds that will be repeated, a.k.a can be held to toggle multiple times
-      binde = [
+      bindle = [
         # volume controls
-        ''
-          ,XF86AudioRaiseVolume, exec, ags run-js "audio.speaker.volume += 0.05; indicator.speaker()"''
-        ''
-          ,XF86AudioLowerVolume, exec, ags run-js "audio.speaker.volume -= 0.05; indicator.speaker()"''
-        # ",XF86AudioMute, exec, ${volumectl} -m"
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
+        ", XF86AudioRaiseVolume, exec, ags run-js 'indicator.popup(1);'"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+        ", XF86AudioLowerVolume, exec, ags run-js 'indicator.popup(1);'"
       ];
 
       # binds that are locked, a.k.a will activate even while an input inhibitor is active
@@ -212,7 +211,8 @@ in {
     extraConfig = ''
       # █▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█
       # █░▀░█ █▄█ █░▀█ █ ░█░ █▄█ █▀▄
-        monitor=,highres,auto,1
+        monitor=DP-2,1920x1080@165,1920x0,1
+        monitor=DP-1,1920x1080@60,0x0,1
 
       # █▀ █▀█ █▀▀ █▀▀ █ ▄▀█ █░░
       # ▄█ █▀▀ ██▄ █▄▄ █ █▀█ █▄▄

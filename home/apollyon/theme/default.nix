@@ -59,25 +59,23 @@
 
   qt = {
     enable = true;
-    # platformTheme = "qtct"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
+    platformTheme = "qtct"; # just an override for QT_QPA_PLATFORMTHEME, takes “gtk”, “gnome”, “qtct” or “kde”
     style = {
-      package = pkgs.adwaita-qt;
-      name = "Adawaita-dark";
+      package = pkgs.graphite-kde-theme;
+      name = "GraphiteDark";
     };
   };
-
   xdg.configFile = {
-    "Kvantum/kvantum.kvconfig".source =
-      (pkgs.formats.ini { }).generate "kvantum.kvconfig" {
-        General.theme = "Graphite-rimlessDark";
-        Applications.Graphite-rimlessDark = ''
-          qt5ct, org.kde.dolphin, org.kde.kalendar, org.qbittorrent.qBittorrent, hyprland-share-picker, dolphin-emu, Nextcloud, nextcloud, cantata, org.kde.kid3-qt
-        '';
-      };
+    "Kvantum/GraphiteDark" = {
+      source = ./Kvantum/Graphite;
+      recursive = true;
+    };
+    "Kvantum/kvantum.kvconfig".text = ''
+      [General]
+      theme=GraphiteDark
 
-    "Kvantum/Graphite-rimlessDark/Graphite-rimlessDark.kvconfig".source =
-      ./Graphite-rimlessDark.kvconfig;
-    "Kvantum/Graphite-rimlessDark/Graphite-rimlessDark.svg".source =
-      ./Graphite-rimlessDark.svg;
+      [Applications]
+      GraphiteDark=qt5ct, org.qbittorrent.qBittorrent, hyprland-share-picker
+    '';
   };
 }
