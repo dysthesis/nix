@@ -10,8 +10,8 @@
     ./neofetch
     ./starship
     # ./firefox
-    ./foot
-    ./neovim
+    # ./foot
+    # ./neovim
     ./anyrun
     ./theme
     ./services
